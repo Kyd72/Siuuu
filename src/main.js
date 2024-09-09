@@ -31,6 +31,14 @@ import Toast from 'primevue/toast';
 import ToastService from "primevue/toastservice";
 import Tag from 'primevue/tag';
 import Image from 'primevue/image';
+import InputNumber from 'primevue/inputnumber';
+import InputSwitch from 'primevue/inputswitch';
+import RadioButton from 'primevue/radiobutton';
+import Calendar from 'primevue/calendar';
+
+
+
+
 
 
 
@@ -60,9 +68,10 @@ app.component('SplitterPanel', SplitterPanel);
 app.component('Toast', Toast);
 app.component('Tag', Tag);
 app.component('Image', Image);
-
-
-
+app.component('InputNumber', InputNumber);
+app.component('InputSwitch', InputSwitch);
+app.component('RadioButton', RadioButton);
+app.component('Calendar', Calendar);
 
 
 app.directive('ripple', Ripple);

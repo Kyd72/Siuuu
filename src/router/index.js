@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ClimatSenseSidebar from "@/components/ClimatSenseComponent.vue";
+import SignUp from "@/components/SignUp.vue";
 
 
 const router = createRouter({
@@ -11,7 +12,7 @@ const router = createRouter({
             path: '/',
             name: 'monitoring',
             components: {
-                sidebar:ClimatSenseSidebar,
+                sidebar:SignUp,
             }
 
         }

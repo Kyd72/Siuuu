@@ -1,0 +1,44 @@
+{
+  "resourceType" : "Practitioner",
+  "identifier" : [{
+    "use" : "official",
+    "system" : "urn:oid:2.16.528.1.1007.3.1",
+    "value" : "8746352642027"
+  }
+  ],
+  "name" : [{
+    "use" : "official",
+    "family" : "Heps",
+    "given" : ["Sui-Sui"],
+    "suffix" : ["MD"]
+  }],
+  "telecom" : [{
+    "system" : "phone",
+    "value" : "+330605884933",
+    "use" : "work"
+  },
+    {
+      "system" : "email",
+      "value" : "S.M.Heps@bmc.nl",
+      "use" : "work"
+    }
+   ],
+  "gender" : "Male",
+  "birthDate" : "1971-11-07",
+  "qualification" : [{
+    "code" : {
+      "coding" : [{
+        "system" : "http://snomed.info/sct",
+        "code" : "416720022025",
+        "display" : "Pulmonologist-test"
+      }]
+    }
+  }],
+  "address" : [{
+    "use" : "work",
+    "line" : ["Galapagosweg 91"],
+    "city" : "Den Burg",
+    "postalCode" : "9105 PZ",
+    "country" : "FRA"
+  }]
+}
