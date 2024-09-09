@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ClimatSenseSidebar from "@/components/ClimatSenseComponent.vue";
 import SignUp from "@/components/SignUp.vue";
 
 

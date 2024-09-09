@@ -83,7 +83,10 @@
 
           <!--          Qualification-->
 
-
+            <FloatLabel>
+              <InputNumber id="FHIRadressPostalcodeID" v-model="FHIRadressPostalcode" />
+              <label for="FHIRadressPostalcodeID">Code postal</label>
+            </FloatLabel>
 
         </div>
         </div>
@@ -131,15 +134,13 @@ const FHIRbirthDate = ref();
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
-  max-width: 600px;
-  width: 100%;
+
 }
 
 
