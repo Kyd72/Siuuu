@@ -3,7 +3,7 @@
 // const BACKEND = 'http://localhost:8989';
 // Le backend est également déployé sur heroku
 // Attention : le chargement initial peut être un peu long...
-const BACKEND = "http://localhost:3000";
+const BACKEND = "https://fhir.alliance4u.io/api";
 
 /**
  * Faire un appel AJAX avec l'API fetch

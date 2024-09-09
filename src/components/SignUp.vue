@@ -5,6 +5,7 @@
       <Button @click="activeAccordion = 0" rounded label="1" class="w-2rem h-2rem p-0" :outlined="activeAccordion !== 0" />
       <Button @click="activeAccordion = 1" rounded label="2" class="w-2rem h-2rem p-0" :outlined="activeAccordion !== 1" />
     </div>
+    <Toast />
 
     <Accordion v-model:activeIndex="activeAccordion">
       <AccordionTab header="Créer un compte">
@@ -106,7 +107,12 @@
 
 <script setup>
 import {reactive, ref} from 'vue';
+import { useToast } from 'primevue/usetoast';
 import {Practitioner} from "@/models/models.js";
+import {createPractitioner} from "@/backend_requests/requests.js";
+
+const toast = useToast();
+
 const activeAccordion = ref();
 const FHIRidentifierValue = ref();
 const FHIRactive = ref(false);
@@ -117,7 +123,7 @@ const FHIRadressLine = ref(null);
 const FHIRadressCity = ref(null);
 const FHIRadressState = ref(null);
 const FHIRadressPostalcode = ref();
-const FHIRgender = ref('');
+const FHIRgender = ref('Male');
 const FHIRbirthDate = ref();
 const FHIRqualificationDisplay = ref();
 const specialitiesMedicales = ref([
@@ -125,7 +131,6 @@ const specialitiesMedicales = ref([
   { name: 'Cardiologie', code: '2222222' },
   { name: 'Gastro', code: '3333333' }
 ]);
-
 const practitioner = ref(null);
 
 
@@ -161,10 +166,12 @@ async function createPracticionner(){
 
     practitioner.value = newPractitioner;
     console.log('Practitioner created:', newPractitioner);
+    await createPractitioner(JSON.stringify(newPractitioner), toast)
 
   //await updateSinkDescription(selectedSink.value.mac_adress, selectedSinkDescription.value, toast);
 }
 
+//Fonction pour mettre la date au bon format accepté par FHIR
 function formatDateToYYYYMMDD(date) {
   const formatter = new Intl.DateTimeFormat('en-CA'); // 'en-CA' pour le format yyyy-mm-dd
   return formatter.format(date);
