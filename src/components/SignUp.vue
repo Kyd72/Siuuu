@@ -13,13 +13,13 @@
 
           <!--          Identifiant-->
             <FloatLabel>
-              <InputNumber v-model="FHIRidentifierValue" inputId="FHIRidentifierValueID" :min="0" :max="999999999" />
+              <InputText v-model="FHIRidentifierValue" inputId="FHIRidentifierValueID"  />
               <label for="FHIRidentifierValueID">Identifiant</label>
             </FloatLabel>
           <!--          Actif-->
             <FloatLabel>
               <InputSwitch id="FHIRactiveID" v-model="FHIRactive" />
-              <label for="FHIRactiveID">Identifiant</label>
+              <label for="FHIRactiveID">Actif ?</label>
             </FloatLabel>
 
           <!--          Nom-->
@@ -36,7 +36,7 @@
           </FloatLabel>
           <!--          N° Tel-->
             <FloatLabel>
-              <InputNumber v-model="FHIRtelecomPhoneValue" inputId="FHIRtelecomPhoneValueID" :min="0" :max="999999999" />
+              <InputText v-model="FHIRtelecomPhoneValue" inputId="FHIRtelecomPhoneValueID"  />
               <label for="FHIRtelecomPhoneValueID">N° Tel</label>
             </FloatLabel>
 
@@ -75,7 +75,7 @@
               <label for="FHIRadressStateID">Département</label>
             </FloatLabel>
             <FloatLabel>
-              <InputNumber id="FHIRadressPostalcodeID" v-model="FHIRadressPostalcode" />
+              <InputText id="FHIRadressPostalcodeID" v-model="FHIRadressPostalcode" />
               <label for="FHIRadressPostalcodeID">Code postal</label>
             </FloatLabel>
 
@@ -84,11 +84,14 @@
           <!--          Qualification-->
 
             <FloatLabel>
-              <InputNumber id="FHIRadressPostalcodeID" v-model="FHIRadressPostalcode" />
-              <label for="FHIRadressPostalcodeID">Code postal</label>
+              <Dropdown v-model="FHIRqualificationDisplay" :options="specialitiesMedicales" optionLabel="name" placeholder="Spécialité" class="w-full md:w-14rem" />
             </FloatLabel>
 
         </div>
+        </div>
+
+        <div class="card flex justify-content-center">
+          <Button label="Submit"  @click="createPracticionner()" />
         </div>
       </AccordionTab>
       <AccordionTab header="Se connecter">
@@ -102,20 +105,70 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const activeAccordion = ref(0);
-const FHIRidentifierValue = ref(50);
+import {reactive, ref} from 'vue';
+import {Practitioner} from "@/models/models.js";
+const activeAccordion = ref();
+const FHIRidentifierValue = ref();
 const FHIRactive = ref(false);
 const FHIRnameFamily = ref(null);
 const FHIRnameGiven = ref(null);
-const FHIRtelecomPhoneValue= ref(50);
+const FHIRtelecomPhoneValue= ref();
 const FHIRadressLine = ref(null);
 const FHIRadressCity = ref(null);
 const FHIRadressState = ref(null);
-const FHIRadressPostalcode = ref(0);
+const FHIRadressPostalcode = ref();
 const FHIRgender = ref('');
 const FHIRbirthDate = ref();
+const FHIRqualificationDisplay = ref();
+const specialitiesMedicales = ref([
+  { name: 'Pneumologie', code: '1111111' },
+  { name: 'Cardiologie', code: '2222222' },
+  { name: 'Gastro', code: '3333333' }
+]);
 
+const practitioner = ref(null);
+
+
+
+
+//Création d'un médecin
+
+async function createPracticionner(){
+
+
+    const newPractitioner = new Practitioner();
+
+    // Set identifiers
+    newPractitioner.setIdentifier('official', "FIE5-INTEROP", FHIRidentifierValue.value);
+
+    // Set name
+    newPractitioner.setName('official', FHIRnameFamily.value, [FHIRnameGiven.value], ['Dr']);
+
+    // Set telecom
+    newPractitioner.setTelecom('phone', FHIRtelecomPhoneValue.value, 'work');
+    newPractitioner.setTelecom('email', "default@default.com", 'work');
+    newPractitioner.setTelecom('fax', "696969", 'work');
+
+    // Set gender and birthDate
+    newPractitioner.setGender(FHIRgender.value);
+    newPractitioner.setBirthDate(formatDateToYYYYMMDD(  FHIRbirthDate.value));
+
+    // Set qualification
+    newPractitioner.setQualification("FIE5-INTEROP", FHIRqualificationDisplay.value.code, FHIRqualificationDisplay.value.name);
+
+    // Set address
+    newPractitioner.setAddress('work', [FHIRadressLine.value], FHIRadressCity.value, FHIRadressPostalcode.value, "FRA");
+
+    practitioner.value = newPractitioner;
+    console.log('Practitioner created:', newPractitioner);
+
+  //await updateSinkDescription(selectedSink.value.mac_adress, selectedSinkDescription.value, toast);
+}
+
+function formatDateToYYYYMMDD(date) {
+  const formatter = new Intl.DateTimeFormat('en-CA'); // 'en-CA' pour le format yyyy-mm-dd
+  return formatter.format(date);
+}
 
 
 
