@@ -132,6 +132,6 @@ async function getPractitioner(practitionerName, toast, practitionerIdentifiant)
 //const dataRowTable = reactive([])
 
 
-export { createPractitioner}
+export { createPractitioner, getPractitioner}
 
 
