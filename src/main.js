@@ -36,6 +36,8 @@ import InputSwitch from 'primevue/inputswitch';
 import RadioButton from 'primevue/radiobutton';
 import Calendar from 'primevue/calendar';
 import Dropdown from 'primevue/dropdown';
+import Checkbox from 'primevue/checkbox';
+
 
 
 
@@ -73,11 +75,9 @@ app.component('Image', Image);
 app.component('InputNumber', InputNumber);
 app.component('InputSwitch', InputSwitch);
 app.component('RadioButton', RadioButton);
+app.component('Checkbox', Checkbox);
 app.component('Calendar', Calendar);
 app.component('Dropdown', Dropdown);
-
-
-
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
 app.mount('#app')
