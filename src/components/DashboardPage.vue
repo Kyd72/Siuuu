@@ -4,7 +4,7 @@ import Sidebar from 'primevue/sidebar';
 import Button from 'primevue/button';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import { useRouter } from 'vue-router';
+import router from '@/router';
 
 const sidebarVisible = ref(false);
 const activeTab = ref('home');
@@ -30,12 +30,13 @@ const patients = ref([
 
 const logout = () => {
   // Utilise le hook useRouter pour accéder au routeur
-  const router = useRouter();
+
+    // Supprimer l'élément "practitionerId" du localStorage
+    localStorage.removeItem('practitionerId');
 
   // Redirige vers la page de la landing page
-  router.push({ name: 'LandingPage' }); // Assure-toi que 'LandingPage' correspond au nom défini dans ton routeur
+  router.push('/'); // Assure-toi que 'LandingPage' correspond au nom défini dans ton routeur
 };
-
 
 </script>
 
@@ -98,6 +99,10 @@ const logout = () => {
       </ul>
 
       <Button label="Close" icon="pi pi-times" @click="hideSidebar" class="p-button-secondary" />
+      
+
+
+
     </Sidebar>
 
     <!-- Main content area -->
