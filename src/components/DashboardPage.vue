@@ -9,6 +9,7 @@ import {Practitioner} from "@/models/models.js";
 import {getPractitionerById} from "@/backend_requests/requests.js";
 import {useToast} from "primevue/usetoast";
 import QuestionnaireResponse from './QuestionnaireResponse.vue';
+import PatientsList from "@/components/PatientsList.vue";
 const toastDash = useToast();
 
 const sidebarVisible = ref(false);
@@ -26,12 +27,7 @@ const selectTab = (tab) => {
   activeTab.value = tab;
 };
 
-// Dummy data for demonstration
-const patients = ref([
-  { id: '1', name: 'John Doe', gender: 'Male', birthDate: '1980-01-01', address: '123 Main St' },
-  { id: '2', name: 'Jane Smith', gender: 'Female', birthDate: '1990-05-15', address: '456 Elm St' },
-  // Add more patient records as needed
-]);
+
 
 const logout = () => {
   // Utilise le hook useRouter pour accéder au routeur
@@ -73,10 +69,10 @@ onUpdated(async () => {
 <template>
   <div class="container">
     <!-- Button to open the sidebar -->
-    <Button label="Show Dashboard" icon="pi pi-menu" @click="showSidebar" class="show-sidebar-button" />
+    <Button icon="pi pi-menu" @click="showSidebar" class="show-sidebar-button" />
 
     <!-- Sidebar component -->
-    <Sidebar :visible.sync="sidebarVisible" position="left" :breakpoint="768" showCloseIcon>
+    <Sidebar :visible.sync="sidebarVisible" position="left" :breakpoint="768" >
       <!-- User info section -->
       <div class="user-info">
         <div class="user-avatar-container">
@@ -148,13 +144,7 @@ onUpdated(async () => {
       </div>
       <div v-if="activeTab === 'patients'">
         <!-- Content for patient data -->
-        <DataTable :value="patients" class="p-datatable-striped">
-          <Column field="id" header="ID" />
-          <Column field="name" header="Name" />
-          <Column field="gender" header="Gender" />
-          <Column field="birthDate" header="Birth Date" />
-          <Column field="address" header="Address" />
-        </DataTable>
+        <PatientsList></PatientsList>
       </div>
     </div>
 
