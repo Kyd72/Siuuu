@@ -1,5 +1,6 @@
 <script setup>
-// Vous pouvez inclure ici des fonctionnalités JavaScript si nécessaire
+import { RouterLink } from 'vue-router';
+
 </script>
 
 <template>
@@ -10,14 +11,14 @@
                 <div class="logo">
                     <h1 class="logo-text">MediSoft</h1>
                 </div>
-                <nav class="nav">
-                    <ul class="nav-list p-m-0 p-d-flex p-ai-center">
-                        <li><a href="#hero" class="nav-item">Accueil</a></li>
-                        <li><a href="#features" class="nav-item">Fonctionnalités</a></li>
-                        <li><a href="#about" class="nav-item">À propos</a></li>
-                        <li><Button label="Se connecter" class="p-button-rounded p-button-secondary"></Button></li>
-                    </ul>
-                </nav>
+             <nav class="nav">
+                <ul class="nav-list p-m-0 p-d-flex p-ai-center">
+                    <li><a href="#hero" class="nav-item">Accueil</a></li>
+                    <li><a href="#features" class="nav-item">Fonctionnalités</a></li>
+                    <li><a href="#about" class="nav-item">À propos</a></li>
+                    <li><router-link to="/login" class="nav-item">Se connecter</router-link></li>
+                </ul>
+            </nav>
             </div>
         </header>
 
@@ -36,31 +37,21 @@
                 <h2 class="p-text-center">Nos Fonctionnalités</h2>
                 <div class="features-grid p-d-flex p-jc-around p-flex-wrap">
                     <div class="feature-item p-shadow-3 p-p-4 p-mb-4 p-d-flex p-flex-column p-ai-center">
-                        <i class="pi pi-user p-mb-3" style="font-size: 2rem;"></i>
+                        <i class="pi pi-user p-mb-3" style="font-size: 2rem; color: #009688;"></i>
                         <h3>Inscription des Médecins</h3>
                         <p>Ajoutez et gérez les profils des médecins de manière simple et efficace.</p>
                     </div>
                     <div class="feature-item p-shadow-3 p-p-4 p-mb-4 p-d-flex p-flex-column p-ai-center">
-                        <i class="pi pi-question-circle p-mb-3" style="font-size: 2rem;"></i>
+                        <i class="pi pi-question-circle p-mb-3" style="font-size: 2rem; color: #009688;"></i>
                         <h3>Gestion des Questionnaires</h3>
                         <p>Créez, distribuez et analysez des questionnaires médicaux en toute simplicité.</p>
                     </div>
                     <div class="feature-item p-shadow-3 p-p-4 p-mb-4 p-d-flex p-flex-column p-ai-center">
-                        <i class="pi pi-lock p-mb-3" style="font-size: 2rem;"></i>
+                        <i class="pi pi-lock p-mb-3" style="font-size: 2rem; color: #009688;"></i>
                         <h3>Sécurité des Données</h3>
                         <p>Assurez-vous que les données médicales sont protégées avec des normes de sécurité avancées.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about-section p-py-6">
-            <div class="container">
-                <h2 class="p-text-center p-mb-4">À propos de nous</h2>
-                <p class="p-text-center p-mx-auto p-mb-4" style="max-width: 800px;">
-                    MediSoft est dédié à fournir des solutions efficaces pour les professionnels de la santé. Notre objectif est de simplifier la gestion des médecins et des questionnaires, tout en garantissant la sécurité des données médicales. Avec notre logiciel, vous pouvez vous concentrer sur ce qui est important : offrir les meilleurs soins possibles à vos patients.
-                </p>
             </div>
         </section>
 
@@ -82,11 +73,11 @@
         </section>
 
         <!-- Call to Action Section -->
-        <section class="cta-section p-py-6 p-text-center p-bg-primary p-text-white">
+        <section class="cta-section p-py-6 p-text-center">
             <div class="container">
                 <h2>Prêt à optimiser votre gestion ?</h2>
                 <p class="p-mb-4">Découvrez comment MediSoft peut améliorer vos processus médicaux dès aujourd'hui.</p>
-                <Button label="Contactez-nous" icon="pi pi-envelope" class="p-button-rounded p-button-lg p-button-warning" />
+                <Button label="Contactez-nous" icon="pi pi-envelope" class="p-button-rounded p-button-lg p-button-green" />
             </div>
         </section>
 
@@ -100,7 +91,7 @@
                     <li class="p-mr-4"><a href="#hero" class="p-text-white">Accueil</a></li>
                     <li class="p-mr-4"><a href="#features" class="p-text-white">Fonctionnalités</a></li>
                     <li class="p-mr-4"><a href="#about" class="p-text-white">À propos</a></li>
-                    <li><a href="#login" class="p-text-white">Se connecter</a></li>
+                    <li><RouterLink to="/loginpage" class="p-button-rounded p-button-secondary">Se connecter</RouterLink></li>
                 </ul>
                 <p>&copy; 2024 MediSoft. Tous droits réservés.</p>
             </div>
@@ -141,7 +132,7 @@ body {
 .logo-text {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #333;
+    color: #009688; /* Utilisation du vert pour le logo */
 }
 
 .nav {
@@ -159,14 +150,14 @@ body {
 }
 
 .nav-item {
-    color: #333;
+    color: #009688; /* Utilisation du vert pour les liens de navigation */
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.3s, transform 0.3s;
 }
 
 .nav-item:hover {
-    color: #ff9800;
+    color: #00796b; /* Teinte plus foncée du vert au survol */
     transform: translateY(-1px);
 }
 
@@ -214,10 +205,15 @@ body {
     text-align: center;
 }
 
+.feature-item i {
+    color: #009688;
+}
+
 /* About Section */
 .about-section {
     padding: 80px 0;
     background-color: #ffffff;
+    text-align: center;
 }
 
 /* Testimonials Section */
@@ -245,7 +241,7 @@ body {
 /* Call to Action Section */
 .cta-section {
     padding: 80px 0;
-    background-color: #007bff;
+    background-color: #009688; /* Utilisation du vert pour la section CTA */
     color: white;
 }
 
