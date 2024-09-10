@@ -10,7 +10,6 @@ import "primeflex/primeflex.css";
 import StyleClass from "primevue/styleclass";
 import "primevue/resources/primevue.min.css";
 import 'primeicons/primeicons.css';
-
 //core
 
 import Button from "primevue/button"

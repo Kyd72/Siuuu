@@ -3,7 +3,7 @@
 
 <template>
 
-  <RouterView class="login" name="loginpage"/>
+  <RouterView class="homepage" name="landingpage"/>
 
 </template>
 
