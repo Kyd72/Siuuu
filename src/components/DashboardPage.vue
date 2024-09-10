@@ -2,8 +2,12 @@
 import { ref } from 'vue';
 import Sidebar from 'primevue/sidebar';
 import Button from 'primevue/button';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import { useRouter } from 'vue-router';
 
 const sidebarVisible = ref(false);
+const activeTab = ref('home');
 
 const showSidebar = () => {
   sidebarVisible.value = true;
@@ -12,48 +16,205 @@ const showSidebar = () => {
 const hideSidebar = () => {
   sidebarVisible.value = false;
 };
+
+const selectTab = (tab) => {
+  activeTab.value = tab;
+};
+
+// Dummy data for demonstration
+const patients = ref([
+  { id: '1', name: 'John Doe', gender: 'Male', birthDate: '1980-01-01', address: '123 Main St' },
+  { id: '2', name: 'Jane Smith', gender: 'Female', birthDate: '1990-05-15', address: '456 Elm St' },
+  // Add more patient records as needed
+]);
+
+const logout = () => {
+  // Utilise le hook useRouter pour accéder au routeur
+  const router = useRouter();
+
+  // Redirige vers la page de la landing page
+  router.push({ name: 'LandingPage' }); // Assure-toi que 'LandingPage' correspond au nom défini dans ton routeur
+};
+
+
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <!-- Button to open the sidebar -->
-    <Button label="Show Dashboard" icon="pi pi-menu" @click="showSidebar" />
+    <Button label="Show Dashboard" icon="pi pi-menu" @click="showSidebar" class="show-sidebar-button" />
 
     <!-- Sidebar component -->
     <Sidebar :visible.sync="sidebarVisible" position="left" :breakpoint="768" showCloseIcon>
-      <h3>Dashboard</h3>
-      <ul>
+      <!-- User info section -->
+      <div class="user-info">
+        <div class="user-avatar-container">
+          <img src="/src/assets/Profil.png" alt="User Avatar" class="user-avatar" />
+        </div>
+        <div class="user-details">
+          <p class="user-name">John Doe</p>
+          <p class="user-number">+123 456 7890</p>
+        </div>
+      </div>
+      
+      <!-- Navigation links -->
+      <ul class="sidebar-links">
         <li>
-          <Button label="Questionnaires en Attente" icon="pi pi-clock" class="p-button-text" />
+          <Button 
+            label="Accueil" 
+            icon="pi pi-home" 
+            class="p-button-text"
+            @click="selectTab('home')"
+            :class="{ 'active': activeTab === 'home' }"
+          />
         </li>
         <li>
-          <Button label="Questionnaires Répondu" icon="pi pi-check" class="p-button-text" />
+          <Button 
+            label="Questionnaires en Attente" 
+            icon="pi pi-clock" 
+            class="p-button-text"
+            @click="selectTab('pending')"
+            :class="{ 'active': activeTab === 'pending' }"
+          />
+        </li>
+        <li>
+          <Button 
+            label="Questionnaires Répondu" 
+            icon="pi pi-check" 
+            class="p-button-text"
+            @click="selectTab('answered')"
+            :class="{ 'active': activeTab === 'answered' }"
+          />
+        </li>
+        <li>
+          <Button 
+            label="Mes Patients" 
+            icon="pi pi-users" 
+            class="p-button-text"
+            @click="selectTab('patients')"
+            :class="{ 'active': activeTab === 'patients' }"
+          />
         </li>
       </ul>
+
       <Button label="Close" icon="pi pi-times" @click="hideSidebar" class="p-button-secondary" />
     </Sidebar>
 
     <!-- Main content area -->
-    <div class="p-mt-5">
-      <h1>Welcome to the Dashboard</h1>
-      <!-- Add your main content here -->
+    <div :class="{ 'main-content': true, 'sidebar-open': sidebarVisible }">
+      <div v-if="activeTab === 'home'">
+        <h1>Welcome to the Dashboard</h1>
+        <p>Welcome to the main page of the dashboard.</p>
+      </div>
+      <div v-if="activeTab === 'pending'">
+        <!-- Content for pending questionnaires -->
+        <p>Pending questionnaires will be displayed here.</p>
+      </div>
+      <div v-if="activeTab === 'answered'">
+        <!-- Content for answered questionnaires -->
+        <p>Answered questionnaires will be displayed here.</p>
+      </div>
+      <div v-if="activeTab === 'patients'">
+        <!-- Content for patient data -->
+        <DataTable :value="patients" class="p-datatable-striped">
+          <Column field="id" header="ID" />
+          <Column field="name" header="Name" />
+          <Column field="gender" header="Gender" />
+          <Column field="birthDate" header="Birth Date" />
+          <Column field="address" header="Address" />
+        </DataTable>
+      </div>
     </div>
+
+    <!-- Logout Button positioned on the right side -->
+    <Button label="Logout" icon="pi pi-sign-out" @click="logout" class="logout-button" />
+    <RouterLink :to="{ name: 'LandingPage' }" class="logout-link">
+          <Button label="Logout" icon="pi pi-sign-out" class="logout-button" />
+    </RouterLink>
   </div>
 </template>
 
 <style scoped>
+/* Container for the layout */
+.container {
+  display: flex;
+  position: relative;
+}
+
 /* Style for the sidebar */
 .p-sidebar {
   width: 250px;
+  z-index: 1000; /* Ensures the sidebar is above other content */
 }
 
-/* Style for the sidebar items */
-.p-sidebar ul {
+/* Adjusting the main content area */
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  transition: margin-left 0.3s ease;
+}
+
+/* When sidebar is visible, add margin to main content */
+.sidebar-open {
+  margin-left: 250px; /* Same width as the sidebar */
+}
+
+/* Button to show sidebar */
+.show-sidebar-button {
+  margin: 1rem;
+  font-size: 1rem; /* Adjust font size */
+  padding: 0.5rem 1rem; /* Adjust padding */
+}
+
+/* User info section */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Container for the user avatar */
+.user-avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid #555; /* Dark gray border color */
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+/* Style for the user avatar image */
+.user-avatar {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* User details */
+.user-details {
+  text-align: center;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-number {
+  color: #555;
+}
+
+/* Style for the sidebar links */
+.sidebar-links {
   list-style-type: none;
   padding: 0;
 }
 
-.p-sidebar li {
+.sidebar-links li {
   margin-bottom: 1rem;
 }
 
@@ -61,6 +222,12 @@ const hideSidebar = () => {
 .p-button-text {
   width: 100%;
   justify-content: flex-start;
+}
+
+/* Style for the active tab */
+.active {
+  background-color: #f0f0f0;
+  border-radius: 4px;
 }
 
 /* Style for the close button */
@@ -72,5 +239,18 @@ const hideSidebar = () => {
 /* Main content area */
 .p-mt-5 {
   margin-top: 2rem;
+}
+
+/* Style for the DataTable */
+.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) > td {
+  background-color: #f9f9f9;
+}
+
+/* Logout button positioned on the right side */
+.logout-button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001; /* Ensure the logout button is above other content */
 }
 </style>
