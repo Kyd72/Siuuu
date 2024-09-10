@@ -103,20 +103,6 @@ function formatDateToYYYYMMDD(date) {
 </script>
 
 
-<style scoped>
-
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
-}
-
+<style>
 
 </style>

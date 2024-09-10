@@ -7,6 +7,7 @@
 
 </template>
 
-<style scoped>
+<style lang="scss">
 
+@import "primeflex/primeflex.css";
 </style>
