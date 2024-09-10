@@ -1,10 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+import {onMounted, onUpdated, reactive, ref} from 'vue';
 import Sidebar from 'primevue/sidebar';
 import Button from 'primevue/button';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import router from '@/router';
+import {Practitioner} from "@/models/models.js";
+import {getPractitionerById} from "@/backend_requests/requests.js";
+import {useToast} from "primevue/usetoast";
+
+const toastDash = useToast();
 
 const sidebarVisible = ref(false);
 const activeTab = ref('home');
@@ -38,6 +43,31 @@ const logout = () => {
   router.push('/'); // Assure-toi que 'LandingPage' correspond au nom défini dans ton routeur
 };
 
+
+// à la créaation du composant, on va chercher les infos du patient connectées grâce à son id localisé dans le
+//local storage
+const connectedPractitioner = reactive({}) ;
+const storedPractitionerId = localStorage.getItem('practitionerId');
+
+
+onMounted(async () => {
+
+  await getPractitionerById(storedPractitionerId, toastDash, router ).then(data => {
+    // Si le JSON contient plus de propriétés, elles seront toutes assignées dynamiquement
+    Object.assign(connectedPractitioner, data);
+  }).catch(error => {
+    toastDash.add({ severity: 'error', summary: 'Info', detail: "Erreur de récupération de données\n", life: 3000 })
+    console.error('Erreur lors de la récupération des données:', error);
+  });
+});
+
+onUpdated(async () => {
+
+
+
+
+});
+
 </script>
 
 <template>
@@ -53,8 +83,8 @@ const logout = () => {
           <img src="/src/assets/Profil.png" alt="User Avatar" class="user-avatar" />
         </div>
         <div class="user-details">
-          <p class="user-name">John Doe</p>
-          <p class="user-number">+123 456 7890</p>
+          <p class="user-name">{{connectedPractitioner.name[0].family}}, {{connectedPractitioner.name[0].given[0]}} </p>
+          <p class="user-number">{{connectedPractitioner.identifier[0].value}}</p>
         </div>
       </div>
       
@@ -99,10 +129,6 @@ const logout = () => {
       </ul>
 
       <Button label="Close" icon="pi pi-times" @click="hideSidebar" class="p-button-secondary" />
-      
-
-
-
     </Sidebar>
 
     <!-- Main content area -->
