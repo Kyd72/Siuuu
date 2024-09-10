@@ -8,7 +8,7 @@ import router from '@/router';
 import {Practitioner} from "@/models/models.js";
 import {getPractitionerById} from "@/backend_requests/requests.js";
 import {useToast} from "primevue/usetoast";
-
+import QuestionnaireResponse from './QuestionnaireResponse.vue';
 const toastDash = useToast();
 
 const sidebarVisible = ref(false);
@@ -139,8 +139,9 @@ onUpdated(async () => {
       </div>
       <div v-if="activeTab === 'pending'">
         <!-- Content for pending questionnaires -->
-        <p>Pending questionnaires will be displayed here.</p>
-      </div>
+         <p>Mes réponses </p>
+        <QuestionnaireResponse></QuestionnaireResponse>
+    </div>
       <div v-if="activeTab === 'answered'">
         <!-- Content for answered questionnaires -->
         <p>Answered questionnaires will be displayed here.</p>

@@ -47,7 +47,6 @@
         value: "eval-cognitive-neuro-001"
       }
     ],
-    version: "1.0.0",
     name: "EvaluationCognitiveNeurologique",
     title: "Évaluation Cognitive Neurologique",
     status: "active",
