@@ -5,7 +5,7 @@
 
   <RouterView class="homepage" name="landingpage"/>
   <RouterView class="login" name="loginpage"/>
-  <RouterView class="dashboardpage" name="loginpage"/>
+  <RouterView class="dashboard" name="dashboardpage"/>
 
 
 
