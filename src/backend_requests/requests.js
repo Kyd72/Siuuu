@@ -272,7 +272,6 @@ async function updateResponseStatus(responseId, toast, newStatus) {
 
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus }
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getPatients}
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients }
 
 
