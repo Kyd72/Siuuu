@@ -8,6 +8,10 @@ console.log('Practitioner ID récupéré du localStorage:', storedPractitionerId
 <template>
 
   <RouterView class="homepage" name="landingpage"/>
+  <RouterView class="login" name="loginpage"/>
+  <RouterView class="dashboardpage" name="loginpage"/>
+
+
 
 </template>
 

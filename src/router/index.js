@@ -17,8 +17,6 @@ const router = createRouter({
             components: {
                 loginpage:LoginPage,
             },
-
-
         },
 
         {
@@ -33,7 +31,8 @@ const router = createRouter({
             name: 'landing_page',
             components: {
                 landingpage:LandingPage,
-            }}
+            }
+        }
 
 
 
