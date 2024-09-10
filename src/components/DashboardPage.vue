@@ -128,9 +128,8 @@ const logout = () => {
 
     <!-- Logout Button positioned on the right side -->
     <Button label="Logout" icon="pi pi-sign-out" @click="logout" class="logout-button" />
-    <RouterLink :to="{ name: 'LandingPage' }" class="logout-link">
-          <Button label="Logout" icon="pi pi-sign-out" class="logout-button" />
-    </RouterLink>
+
+    
   </div>
 </template>
 
