@@ -5,10 +5,10 @@ import PrimeIcons from 'primevue/config';
 import App from './App.vue'
 import router from "@/router/index.js";
 import Ripple from "primevue/ripple";
-import StyleClass from "primevue/styleclass";
-
-import "primevue/resources/primevue.min.css";
 import 'primevue/resources/themes/aura-light-green/theme.css'
+import "primeflex/primeflex.css";
+import StyleClass from "primevue/styleclass";
+import "primevue/resources/primevue.min.css";
 import 'primeicons/primeicons.css';
 
 //core
@@ -37,6 +37,8 @@ import RadioButton from 'primevue/radiobutton';
 import Calendar from 'primevue/calendar';
 import Dropdown from 'primevue/dropdown';
 import Checkbox from 'primevue/checkbox';
+import FloatLabel from 'primevue/floatlabel';
+
 
 
 
@@ -78,6 +80,7 @@ app.component('RadioButton', RadioButton);
 app.component('Checkbox', Checkbox);
 app.component('Calendar', Calendar);
 app.component('Dropdown', Dropdown);
+app.component('FloatLabel', FloatLabel);
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
 app.mount('#app')
