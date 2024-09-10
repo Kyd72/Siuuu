@@ -5,8 +5,11 @@ import {doAjaxRequest} from "@/backend_requests/fetch_api.js";
 const create_practitioner="/practitioner" // endpoint pour créer un practicioner
 
 const search_practitioner_part1="/practitioner?identifier.value="
-const search_practitioner_part3="&name.family="
+const search_practitioner_part3="&name.family="                         // Chercher un praticien avec son nom et son identifier value
 const search_practitioner_part2="&identifier.system=FIE5-INTEROP"
+
+const search_practitioner_by_id="/practitioner/"                        // Chercher un praticien avec son id
+
 
 
 
@@ -52,7 +55,7 @@ async function createPractitioner(practitionerJson, toast) {
 }
 
 /*Chercher le praticien*/
-async function getPractitioner(practitionerName, toast, practitionerIdentifiant, router) {
+async function getPractitionerByNameAndIdentifier(practitionerName, toast, practitionerIdentifiant, router) {
 
 
     try {
@@ -121,6 +124,45 @@ async function getPractitioner(practitionerName, toast, practitionerIdentifiant,
 }
 
 
+/*Chercher le praticien avec son id*/
+async function getPractitionerById(practitionerId, toast, router) {
+
+
+    try {
+        const get_options = {
+            method: 'GET',
+            headers: {
+                'accept': '*/*'
+            }
+        }
+
+        const data = await doAjaxRequest(search_practitioner_by_id+practitionerId, get_options)
+
+        async function connected() {
+
+           return await data.json() ;
+
+
+
+        }
+
+        if (data.status >399) {
+
+            await data.json().then((json)=> toast.add({ severity: 'error', summary: 'Info', detail: "Ce médécin n'existe pas\n"+  json.message, life: 3000 }) )
+            ;
+
+            router.push('/login')
+        }
+        return data.status === 200 ? await connected() :  null
+
+
+    } catch (e) {
+        alert(e)
+    }
+
+
+}
+
 
 
 
@@ -134,6 +176,6 @@ async function getPractitioner(practitionerName, toast, practitionerIdentifiant,
 //const dataRowTable = reactive([])
 
 
-export { createPractitioner, getPractitioner}
+export { createPractitioner, getPractitionerByNameAndIdentifier}
 
 

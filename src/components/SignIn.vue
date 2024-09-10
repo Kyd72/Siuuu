@@ -4,7 +4,7 @@ import router from "@/router"
 import {reactive, ref} from 'vue';
 import { useToast } from 'primevue/usetoast';
 import {Practitioner} from "@/models/models.js";
-import {getPractitioner} from "@/backend_requests/requests.js";
+import {getPractitionerByNameAndIdentifier} from "@/backend_requests/requests.js";
 
 
 const toastSignIn = useToast();
@@ -16,7 +16,7 @@ const FHIRidentifierValue_signin = ref();
 
 async function searchPracticionner(){
 
-  await getPractitioner(FHIRnameFamily_signin.value.toLowerCase(), toastSignIn, FHIRidentifierValue_signin.value.toLowerCase(), router )
+  await getPractitionerByNameAndIdentifier(FHIRnameFamily_signin.value.toLowerCase(), toastSignIn, FHIRidentifierValue_signin.value.toLowerCase(), router )
 
 }
 
