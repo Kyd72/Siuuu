@@ -11,8 +11,6 @@ console.log('Practitioner ID récupéré du localStorage:', storedPractitionerId
   <RouterView class="login" name="loginpage"/>
   <RouterView class="dashboard" name="dashboardpage"/>
 
-
-
 </template>
 
 <style lang="scss">
