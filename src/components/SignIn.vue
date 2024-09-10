@@ -1,9 +1,8 @@
 <script setup>
+
 </script>
 
 <template>
-
-  <RouterView class="login" name="loginpage"/>
 
 </template>
 

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import SignUp from "@/components/SignUp.vue";
+import LoginPage from "@/components/LoginPage.vue";
 
 
 const router = createRouter({
@@ -9,9 +10,9 @@ const router = createRouter({
         /*All*/
         {
             path: '/',
-            name: 'monitoring',
+            name: 'login_page',
             components: {
-                sidebar:SignUp,
+                loginpage:LoginPage,
             }
 
         }

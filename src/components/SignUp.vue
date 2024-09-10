@@ -1,14 +1,10 @@
 
 <template>
   <div class="card">
-    <div class="flex mb-3 gap-2 justify-content-end">
-      <Button @click="activeAccordion = 0" rounded label="1" class="w-2rem h-2rem p-0" :outlined="activeAccordion !== 0" />
-      <Button @click="activeAccordion = 1" rounded label="2" class="w-2rem h-2rem p-0" :outlined="activeAccordion !== 1" />
-    </div>
+
     <Toast />
 
-    <Accordion v-model:activeIndex="activeAccordion">
-      <AccordionTab header="Créer un compte">
+
         <div class="form-container">
           <div class="form-grid">
 
@@ -94,14 +90,7 @@
         <div class="card flex justify-content-center">
           <Button label="Submit"  @click="createPracticionner()" />
         </div>
-      </AccordionTab>
-      <AccordionTab header="Se connecter">
-        <p class="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-          ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-        </p>
-      </AccordionTab>
-    </Accordion>
+
   </div>
 </template>
 
@@ -123,7 +112,7 @@ const FHIRadressLine = ref(null);
 const FHIRadressCity = ref(null);
 const FHIRadressState = ref(null);
 const FHIRadressPostalcode = ref();
-const FHIRgender = ref('Male');
+const FHIRgender = ref('Male4');
 const FHIRbirthDate = ref();
 const FHIRqualificationDisplay = ref();
 const specialitiesMedicales = ref([
