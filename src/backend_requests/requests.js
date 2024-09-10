@@ -66,10 +66,29 @@ async function getPractitioner(practitionerName, toast, practitionerIdentifiant)
 
         async function connected() {
 
-            toast.add({ severity: 'success', summary: 'Info', detail: "Authentifié", life: 1500 });
             await data.json().then(data => {
                 // Accédez à l'ID du Practitioner
-                const practitionerId = data.id; // Supposant que l'ID est dans la propriété "id"
+                let practitionerId ; // Supposant que l'ID est dans la propriété "id"
+
+                // Vérifier si 'data' est un tableau
+                if (Array.isArray(data)) {
+                    if (data.length > 0) {
+                        // Si c'est un tableau avec des objets, prendre le premier
+                        practitionerId = data[0].id;
+                        toast.add({ severity: 'success', summary: 'Info', detail: "Authentifié", life: 1500 });
+
+                    } else {
+                        console.error('Le tableau est vide.');
+                        toast.add({ severity: 'error', summary: 'Info', detail: "Ce compte n'existe pas", life: 1500 });
+
+                        return;
+                    }
+                } else {
+                    // Si c'est un objet unique
+                    practitionerId = data.id;
+                    toast.add({ severity: 'success', summary: 'Info', detail: "Authentifié", life: 1500 });
+
+                }
 
                 // Stockez l'ID dans le localStorage
                 localStorage.setItem('practitionerId', practitionerId);
@@ -77,7 +96,7 @@ async function getPractitioner(practitionerName, toast, practitionerIdentifiant)
                 console.log('Practitioner ID enregistré dans le localStorage:', practitionerId);
             })
                 .catch(error => {
-                    toast.add({ severity: 'success', summary: 'Info', detail: "Erreur lors de la récupération des données", life: 1500 });
+                    toast.add({ severity: 'error', summary: 'Info', detail: "Erreur lors de la récupération des données", life: 1500 });
 
                 });
 

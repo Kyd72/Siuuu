@@ -2,12 +2,23 @@
 import {reactive, ref} from 'vue';
 import { useToast } from 'primevue/usetoast';
 import {Practitioner} from "@/models/models.js";
+import {getPractitioner} from "@/backend_requests/requests.js";
 
 
-const toast = useToast();
+const toastSignIn = useToast();
 
-const FHIRnameFamily_signin = ref(null);
-const FHIRidentifierValue_signin = ref(null);
+const FHIRnameFamily_signin = ref();
+const FHIRidentifierValue_signin = ref();
+
+//Rechercher le medecin dans la BDD
+
+async function searchPracticionner(){
+
+  await getPractitioner(FHIRnameFamily_signin.value.toLowerCase(), toastSignIn, FHIRidentifierValue_signin.value.toLowerCase() )
+
+}
+
+
 
 
 </script>
@@ -44,7 +55,8 @@ const FHIRidentifierValue_signin = ref(null);
     <!--        <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot password?</a>-->
     <!--      </div>-->
 
-    <Button label="Se connecter" icon="pi pi-user" class="w-full"></Button>
+    <Button label="Se connecter"  @click="searchPracticionner()" icon="pi pi-user" class="w-full"></Button>
+
   </div>
 </div></div>
 
