@@ -1,6 +1,12 @@
 <script setup>
 //TODO : si le praticien est déjà connecté, on le route directement sur le dashboard
+import {onMounted} from "vue";
+
+
 const storedPractitionerId = localStorage.getItem('practitionerId');
+
+onMounted(()=>{
+})
 console.log('Practitioner ID récupéré du localStorage:', storedPractitionerId);
 
 </script>

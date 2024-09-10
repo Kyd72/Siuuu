@@ -1,0 +1,48 @@
+{
+    "resourceType": "Patient",
+    "id": "987654321",
+    "identifier": [
+      {
+        "use": "usual",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "AIN"
+            }
+          ]
+        },
+        "system": "urn:oid:1.2.36.146.595.217.0.1",
+        "value": "987654321",
+        "period": {
+          "start": "2024-01-01"
+        },
+        "assigner": {
+          "display": "CHU"
+        }
+      }
+    ],
+    "name": [
+      {
+        "use": "official",
+        "family": "Dupont",
+        "given": [
+          "Antoine"
+        ]
+      },
+      {
+        "use": "usual",
+        "given": [
+          "TOTO"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1996-11-15",
+    "deceasedBoolean": false,
+    "generalPractitioner": [
+      {
+        "reference": "Practitioner/123456789"
+      }
+    ]
+  }
