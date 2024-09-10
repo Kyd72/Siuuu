@@ -12,27 +12,28 @@ const router = createRouter({
     routes: [
         /*All*/
         {
-            path: '/',
+            path: '/login',
             name: 'login_page',
             components: {
                 loginpage:LoginPage,
             },
-            path: '/',
-            name: 'home_page',
-            components: {
-                homepage:HomePage,
-            }, 
-            path: '/',
+
+
+        },
+
+        {
+            path: '/dashboard',
             name: 'dashboard_page',
             components: {
                 dashboardpage:DashboardPage,
-            }, 
+            },
+            },
+        {
             path: '/',
             name: 'landing_page',
             components: {
                 landingpage:LandingPage,
-            }
-        }
+            }}
 
 
 
