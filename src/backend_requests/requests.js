@@ -176,6 +176,6 @@ async function getPractitionerById(practitionerId, toast, router) {
 //const dataRowTable = reactive([])
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier}
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById}
 
 
