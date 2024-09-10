@@ -223,14 +223,14 @@ import {createPractitioner} from "@/backend_requests/requests.js";
 const toast = useToast();
 const FHIRidentifierValue = ref();
 const FHIRactive = ref(false);
-const FHIRnameFamily = ref(null);
-const FHIRnameGiven = ref(null);
+const FHIRnameFamily = ref();
+const FHIRnameGiven = ref();
 const FHIRtelecomPhoneValue= ref();
-const FHIRadressLine = ref(null);
-const FHIRadressCity = ref(null);
-const FHIRadressState = ref(null);
+const FHIRadressLine = ref();
+const FHIRadressCity = ref();
+const FHIRadressState = ref();
 const FHIRadressPostalcode = ref();
-const FHIRgender = ref('Male4');
+const FHIRgender = ref('Male');
 const FHIRbirthDate = ref();
 const FHIRqualificationDisplay = ref();
 const specialitiesMedicales = ref([
@@ -251,25 +251,25 @@ async function createPracticionner(){
     const newPractitioner = new Practitioner();
 
     // Set identifiers
-    newPractitioner.setIdentifier('official', "FIE5-INTEROP", FHIRidentifierValue.value);
+    newPractitioner.setIdentifier('official', "FIE5-INTEROP", FHIRidentifierValue.value.toLowerCase());
 
     // Set name
-    newPractitioner.setName('official', FHIRnameFamily.value, [FHIRnameGiven.value], ['Dr']);
+    newPractitioner.setName('official', FHIRnameFamily.value.toLowerCase(), [FHIRnameGiven.value.toLowerCase()], ['Dr']);
 
     // Set telecom
-    newPractitioner.setTelecom('phone', FHIRtelecomPhoneValue.value, 'work');
+    newPractitioner.setTelecom('phone', FHIRtelecomPhoneValue.value.toLowerCase(), 'work');
     newPractitioner.setTelecom('email', "default@default.com", 'work');
     newPractitioner.setTelecom('fax', "696969", 'work');
 
     // Set gender and birthDate
-    newPractitioner.setGender(FHIRgender.value);
+    newPractitioner.setGender(FHIRgender.value.toLowerCase());
     newPractitioner.setBirthDate(formatDateToYYYYMMDD(  FHIRbirthDate.value));
 
     // Set qualification
-    newPractitioner.setQualification("FIE5-INTEROP", FHIRqualificationDisplay.value.code, FHIRqualificationDisplay.value.name);
+    newPractitioner.setQualification("FIE5-INTEROP", FHIRqualificationDisplay.value.code.toLowerCase(), FHIRqualificationDisplay.value.name.toLowerCase());
 
     // Set address
-    newPractitioner.setAddress('work', [FHIRadressLine.value], FHIRadressCity.value, FHIRadressPostalcode.value, "FRA");
+    newPractitioner.setAddress('work', [FHIRadressLine.value.toLowerCase()], FHIRadressCity.value.toLowerCase(), FHIRadressPostalcode.value.toLowerCase(), "FRA");
 
     practitioner.value = newPractitioner;
     console.log('Practitioner created:', newPractitioner);
