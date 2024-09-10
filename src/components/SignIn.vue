@@ -1,4 +1,6 @@
 <script setup>
+
+import router from "@/router"
 import {reactive, ref} from 'vue';
 import { useToast } from 'primevue/usetoast';
 import {Practitioner} from "@/models/models.js";
@@ -14,9 +16,11 @@ const FHIRidentifierValue_signin = ref();
 
 async function searchPracticionner(){
 
-  await getPractitioner(FHIRnameFamily_signin.value.toLowerCase(), toastSignIn, FHIRidentifierValue_signin.value.toLowerCase() )
+  await getPractitioner(FHIRnameFamily_signin.value.toLowerCase(), toastSignIn, FHIRidentifierValue_signin.value.toLowerCase(), router )
 
 }
+
+
 
 
 
@@ -33,13 +37,6 @@ async function searchPracticionner(){
     <span class="text-600 font-medium line-height-3">Don't have an account?</span>
     <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Create today!</a>
   </div>
-    <div class="text-center mb-5">
-      <img src="/src/assets/climatsenselogo.jpg" alt="Image" height="50" class="mb-3" />
-      <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
-      <span class="text-600 font-medium line-height-3">Don't have an account?</span>
-      <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Create today!</a>
-    </div>
-
   <div>
     <label for="FHIRnameFamily_signinID" class="block text-900 font-medium mb-2">Nom de famille</label>
     <InputText id="FHIRnameFamily_signinID" v-model="FHIRnameFamily_signin" type="text" class="w-full mb-3" />

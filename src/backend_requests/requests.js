@@ -12,7 +12,7 @@ const search_practitioner_part2="&identifier.system=FIE5-INTEROP"
 
 
 //REQUETES
-
+/*Créer un praticien*/
 async function createPractitioner(practitionerJson, toast) {
 
 
@@ -51,7 +51,8 @@ async function createPractitioner(practitionerJson, toast) {
 
 }
 
-async function getPractitioner(practitionerName, toast, practitionerIdentifiant) {
+/*Chercher le praticien*/
+async function getPractitioner(practitionerName, toast, practitionerIdentifiant, router) {
 
 
     try {
@@ -92,6 +93,7 @@ async function getPractitioner(practitionerName, toast, practitionerIdentifiant)
 
                 // Stockez l'ID dans le localStorage
                 localStorage.setItem('practitionerId', practitionerId);
+                router.push('/dashboard')
 
                 console.log('Practitioner ID enregistré dans le localStorage:', practitionerId);
             })
