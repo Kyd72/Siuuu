@@ -10,7 +10,7 @@ const search_practitioner_part2="&identifier.system=FIE5-INTEROP"
 
 const search_practitioner_by_id="/practitioner/"                        // Chercher un praticien avec son id
 
-
+const question_reponse_requette = "/questionnaire-response"
 
 
 
@@ -70,6 +70,7 @@ async function getPractitionerByNameAndIdentifier(practitionerName, toast, pract
 
         async function connected() {
 
+            toast.add({ severity: 'success', summary: 'Info', detail: "Authentifié", life: 1500 });
             await data.json().then(data => {
                 // Accédez à l'ID du Practitioner
                 let practitionerId ; // Supposant que l'ID est dans la propriété "id"
@@ -128,14 +129,14 @@ async function getPractitionerByNameAndIdentifier(practitionerName, toast, pract
 async function getPractitionerById(practitionerId, toast, router) {
 
 
-    try {
-        const get_options = {
-            method: 'GET',
-            headers: {
-                'accept': '*/*'
-            }
+        try {
+            const get_options = {
+                method: 'GET',
+                headers: {
+                    'accept': '*/*'
+                }
         }
-
+    
         const data = await doAjaxRequest(search_practitioner_by_id+practitionerId, get_options)
 
         async function connected() {
@@ -164,18 +165,70 @@ async function getPractitionerById(practitionerId, toast, router) {
 }
 
 
-
-
-
-
-
-
-
 //await getActivitiesForConectedStudent().then((e)=>  e.forEach(element => dataRowTable.push(element)) )
 
 //const dataRowTable = reactive([])
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById}
+
+
+async function getQuestionnaireResponses(practitionerId, toast) {
+    try {
+        const get_options = {
+            method: 'GET',
+            headers: {
+                'accept': '*/*',
+            },
+        };
+
+        const data = await doAjaxRequest(question_reponse_requette, get_options); // On supprime le practitionerId dans l'appel ici
+
+        if (!data.ok) {
+            const json = await data.json();
+            toast.add({ severity: 'error', summary: 'Error', detail: `Failed to fetch responses: ${json.message}`, life: 3000 });
+            return [];
+        }
+
+        const dataJSON = await data.json();
+        return dataJSON.filter(response => response.author.reference === `Practitioner/${practitionerId}`);
+    } catch (error) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
+        console.error('Error fetching questionnaire responses:', error);
+        return [];
+    }
+}
+
+async function updateResponseStatus(responseId, toast, newStatus) {
+    try {
+        const putOptions = {
+            method: 'PUT',
+            headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: newStatus }),
+        };
+
+        const response = await doAjaxRequest(`${question_reponse_requette}/${responseId}`, putOptions);
+
+        if (!response.ok) {
+            const json = await response.json();
+            toast.add({ severity: 'error', summary: 'Error', detail: `Failed to update response: ${json.message}`, life: 3000 });
+        } else {
+            toast.add({ severity: 'success', summary: 'Success', detail: `Response ${newStatus === 'completed' ? 'approved' : 'rejected'} successfully`, life: 3000 });
+            // Optionally refresh the responses list
+            responses.value = await getQuestionnaireResponses(localStorage.getItem('practitionerId'), toast);
+        }
+    } catch (error) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
+        console.error('Error updating response status:', error);
+    }
+}
+
+
+
+
+
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus }
 
 

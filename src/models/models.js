@@ -41,7 +41,37 @@ class Practitioner {
       this.address.push({ use, line, city, postalCode, country });
     }
   }
+
+
+  class QuestionnaireResponse {
+    constructor(
+      resourceType = "QuestionnaireResponse",
+      id = "",
+      questionnaire = "",
+      status = "",
+      subject = {},
+      authored = "",
+      author = {},
+      item = []
+    ) {
+      this.resourceType = resourceType;
+      this.id = id;
+      this.questionnaire = questionnaire;
+      this.status = status;
+      this.subject = subject;
+      this.authored = authored;
+      this.author = author;
+      this.item = item;
+    }
+  
+    // Setter pour le champ status
+    setStatus(status) {
+      this.status = status;
+    }
+  
+    // Vous pouvez ajouter d'autres setters si nécessaire
+  }
   
 export {
-    Practitioner
+    Practitioner, QuestionnaireResponse
 }

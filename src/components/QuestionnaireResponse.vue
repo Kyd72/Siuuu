@@ -1,151 +1,84 @@
 <template>
-    <div class="questionnaire-component">
-      <h2>{{ questionnaire.title }}</h2>
-      <p>{{ questionnaire.description }}</p>
-      
-      <div v-for="group in questionnaire.item" :key="group.linkId" class="question-group">
-        <h3>{{ group.text }}</h3>
-        <div v-for="question in group.item" :key="question.linkId" class="question-item">
-          <label :for="question.linkId">{{ question.text }}</label>
-  
-          <!-- Champ de saisie selon le type de question -->
-          <input 
-            v-if="question.type === 'string'" 
-            type="text" 
-            :id="question.linkId" 
-            v-model="responses[question.linkId]" 
-          />
-          <input 
-            v-if="question.type === 'date'" 
-            type="date" 
-            :id="question.linkId" 
-            v-model="responses[question.linkId]" 
-          />
-          <input 
-            v-if="question.type === 'integer'" 
-            type="number" 
-            :id="question.linkId" 
-            v-model="responses[question.linkId]" 
-          />
+    <div class="questionnaire-list">
+      <div v-if="responses.length > 0">
+        <div v-for="response in responses" :key="response.id" class="response-card">
+          <h3>{{ response.questionnaire.title || 'No Title' }}</h3>
+          <p>Status: {{ response.status }}</p>
+          <div v-for="group in response.item" :key="group.linkId" class="question-group">
+            <h4>{{ group.text }}</h4>
+            <div v-for="question in group.item" :key="question.linkId" class="question-item">
+              <p>{{ question.text }}</p>
+              <div v-for="answer in question.answer" :key="answer.valueString || answer.valueInteger" class="answer">
+                <p>{{ answer.valueString || answer.valueInteger }}</p>
+              </div>
+            </div>
+          </div>
+          <Button @click="approveResponse(response.id)" label="Approve" icon="pi pi-check" class="p-button-success" />
+          <Button @click="rejectResponse(response.id)" label="Reject" icon="pi pi-times" class="p-button-danger" />
         </div>
       </div>
-      
-      <button @click="submitResponses">Submit</button>
+      <div v-else>
+        <p>No responses found.</p>
+      </div>
     </div>
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
+  import Button from 'primevue/button';
+  import { useToast } from 'primevue/usetoast';
+  import { getQuestionnaireResponses, updateResponseStatus } from "@/backend_requests/requests.js";
   
-  const questionnaire = ref({
-    resourceType: "Questionnaire",
-    id: "neuro01",
-    url: "https://fhir.alliance4u.io/api/Questionnaire/neuro01",
-    identifier: [
-      {
-        system: "https://fhir.alliance4u.io/api/Questionnaire",
-        value: "eval-cognitive-neuro-001"
-      }
-    ],
-    name: "EvaluationCognitiveNeurologique",
-    title: "Évaluation Cognitive Neurologique",
-    status: "active",
-    date: "2024-09-10",
-    publisher: "Département de Neurologie - Hôpital Exemple",
-    description: "Questionnaire pour évaluer les capacités cognitives d'un patient dans un contexte neurologique.",
-    item: [
-      {
-        linkId: "1",
-        text: "Orientation du patient",
-        type: "group",
-        item: [
-          {
-            linkId: "1.1",
-            text: "Quelle est la date d'aujourd'hui ?",
-            type: "date"
-          },
-          {
-            linkId: "1.2",
-            text: "Où vous trouvez-vous actuellement (ville, établissement, service) ?",
-            type: "string"
-          },
-          {
-            linkId: "1.3",
-            text: "Qui est le président actuel ?",
-            type: "string"
-          }
-        ]
-      },
-      {
-        linkId: "2",
-        text: "Évaluation de la mémoire",
-        type: "group",
-        item: [
-          {
-            linkId: "2.1",
-            text: "Répétez les mots suivants : Pomme, Table, Sou.",
-            type: "string"
-          },
-          {
-            linkId: "2.2",
-            text: "Rappelez-vous les trois mots après quelques minutes.",
-            type: "string"
-          }
-        ]
-      }
-      // Vous pouvez ajouter les autres groupes ici
-    ]
+  const responses = ref([]);
+  const toast = useToast();
+  
+  onMounted(async () => {
+    const practitionerId = localStorage.getItem('practitionerId');
+    if (practitionerId) {
+      responses.value = await getQuestionnaireResponses(practitionerId, toast); // Ajout du toast ici
+    }
   });
   
-  // Réponses du patient
-  const responses = ref({});
+  const approveResponse = async (responseId) => {
+    await updateResponseStatus(responseId, toast, 'completed'); // Ajout du toast ici
+  };
   
-  // Fonction pour soumettre les réponses
-  const submitResponses = () => {
-    console.log("Réponses soumises : ", responses.value);
+  const rejectResponse = async (responseId) => {
+    await updateResponseStatus(responseId, toast, 'rejected'); // Ajout du toast ici
   };
   </script>
   
   <style scoped>
-  .questionnaire-component {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+  .questionnaire-list {
+    padding: 16px;
+  }
+  
+  .response-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #f9f9f9;
   }
   
   .question-group {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   
   .question-item {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+  .answer {
+    margin-top: 4px;
   }
   
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+  .p-button-success {
+    margin-right: 8px;
   }
   
-  button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
+  .p-button-danger {
+    margin-left: 8px;
   }
   </style>
   
