@@ -59,6 +59,7 @@ import {ref, onMounted, onUpdated} from 'vue';
       }
     }
   });
+/*
   onUpdated(async () => {
     if (props.patientId) {
       try {
@@ -87,6 +88,7 @@ import {ref, onMounted, onUpdated} from 'vue';
       }
     }
   });
+*/
 
 </script>
 
