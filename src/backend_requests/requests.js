@@ -14,7 +14,7 @@ const search_patients="/patient?generalPractitioner.reference="   // Chercher le
 
 const get_questionnaire_for_practitioner="/questionnaire-response?author.reference=Practitioner/"   // Chercher les médecins qui m'ont comme référence avec son nom et son identifier value
 
-
+const search_patient_by_id ="/patient/"
 
 
 
