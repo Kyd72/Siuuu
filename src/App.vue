@@ -19,7 +19,7 @@ console.log('Practitioner ID récupéré du localStorage:', storedPractitionerId
 
 </template>
 
-<style lang="scss">
+<style scoped>
 
 @import "primeflex/primeflex.css";
 </style>

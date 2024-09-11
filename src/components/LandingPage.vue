@@ -4,14 +4,14 @@ import { RouterLink } from 'vue-router';
 
 <template>
     <div class="landing-page">
-        <!-- Header Section -->
-        <header class="header">
-            <div class="container p-d-flex p-jc-between p-ai-center">
+         <!-- Header Section -->
+         <header class="header">
+            <div class="header-inner">
                 <div class="logo">
                     <h1 class="logo-text">MediSoft</h1>
                 </div>
                 <nav class="nav">
-                    <ul class="nav-list p-m-0 p-d-flex p-ai-center">
+                    <ul class="nav-list">
                         <li><a href="#hero" class="nav-item">Accueil</a></li>
                         <li><a href="#features" class="nav-item">Fonctionnalités</a></li>
                         <li><a href="#about" class="nav-item">À propos</a></li>
@@ -20,7 +20,6 @@ import { RouterLink } from 'vue-router';
                 </nav>
             </div>
         </header>
-
         <!-- Hero Section -->
         <section id="hero" class="hero p-d-flex p-jc-center p-ai-center p-flex-column">
             <div class="container text-center">
@@ -99,6 +98,7 @@ import { RouterLink } from 'vue-router';
 </template>
 
 <style scoped>
+
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
@@ -117,15 +117,34 @@ body {
 .header {
     background: linear-gradient(90deg, rgba(0, 150, 136, 0.9), rgba(0, 150, 136, 0.7)), url('../src/assets/header-bg.jpg') no-repeat center center/cover;
     color: white;
-    padding: 20px 0;
+    padding: 10px 0; /* Reduced padding */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    position: sticky; /* Change to fixed if you want the header always visible */
+    position: sticky;
     top: 0;
     z-index: 1000;
     width: 100%;
-    /* Ensure header stays on top of other content */
+}
+
+.header-inner {
     display: flex;
-    justify-content: center; /* Centre tout le contenu horizontalement */
+    justify-content: space-between; /* Aligns logo to the left and nav to the right */
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    flex: 1; /* Makes sure the logo takes up space on the left */
+}
+
+.logo-text {
+    font-size: 1.2rem; /* Reduced logo size */
+    margin: 0;
+}
+
+.nav {
+    flex: 2; /* Takes up the remaining space */
 }
 
 .nav-list {
@@ -139,9 +158,9 @@ body {
 .nav-item {
     color: white;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1rem; /* Reduced font size */
     transition: color 0.3s, background-color 0.3s, transform 0.3s;
-    padding: 10px 20px;
+    padding: 8px 15px; /* Reduced padding */
     border-radius: 5px;
 }
 
@@ -150,6 +169,26 @@ body {
     background-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-3px);
     font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-item {
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 /* Hero Section */

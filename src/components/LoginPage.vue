@@ -125,4 +125,5 @@ const activeAccordion = ref(0); // Default to SignUp tab
 .p-p-4 {
     padding: 1rem; /* Padding pour les sections */
 }
+
 </style>

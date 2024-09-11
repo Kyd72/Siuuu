@@ -12,6 +12,7 @@ const search_practitioner_by_id="/practitioner/"                        // Cherc
 
 const search_patients="/patient?generalPractitioner.reference="   // Chercher les médecins qui m'ont comme référence avec son nom et son identifier value
 
+const search_patient_by_id="/patient/"                        // Chercher un patient avec son id
 
 
 
@@ -123,7 +124,9 @@ async function getPractitionerByNameAndIdentifier(practitionerName, toast, pract
     }
 
 
-}/*Chercher le praticien avec son id*/
+}
+
+/*Chercher le praticien avec son id*/
 async function getPractitionerById(practitionerId, toast, router) {
 
 
@@ -161,6 +164,8 @@ async function getPractitionerById(practitionerId, toast, router) {
 
 
 }
+
+
 async function getPatients(practitionerId, toast, router) {
 
 
@@ -200,6 +205,41 @@ async function getPatients(practitionerId, toast, router) {
 }
 
 
+/*Chercher le patient avec son id*/
+async function getPatientById(patientId, toast, router) {
+
+    try {
+        const get_options = {
+            method: 'GET',
+            headers: {
+                'accept': '*/*'
+            }
+    }
+
+    const data = await doAjaxRequest(search_patient_by_id+patientId, get_options)
+
+    async function connected() {
+
+       return await data.json() ;
+
+    }
+
+    if (data.status >399) {
+
+        await data.json().then((json)=> toast.add({ severity: 'error', summary: 'Info', detail: "Ce patient n'existe pas\n"+  json.message, life: 3000 }) )
+        ;
+
+        router.push('/login')
+    }
+    return data.status === 200 ? await connected() :  null
+
+
+} catch (e) {
+    alert(e)
+}
+
+
+}
 
 
 
@@ -272,6 +312,6 @@ async function updateResponseStatus(responseId, toast, newStatus) {
 
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients }
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById }
 
 
