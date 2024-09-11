@@ -3,12 +3,11 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-    <div class="landing-page">
          <!-- Header Section -->
          <header class="header">
             <div class="header-inner">
                 <div class="logo">
-                    <h1 class="logo-text">MediSoft</h1>
+                    <h1 class="logo-text">SIUUUU</h1>
                 </div>
                 <nav class="nav">
                     <ul class="nav-list">
@@ -83,7 +82,7 @@ import { RouterLink } from 'vue-router';
         <footer class="footer p-py-4 p-bg-dark p-text-white">
             <div class="container p-d-flex p-jc-between p-ai-center">
                 <div class="footer-logo">
-                    <h1 class="p-m-0">MediSoft</h1>
+                    <h1 class="p-m-0">SIUUUUUUU</h1>
                 </div>
                 <ul class="footer-nav p-d-flex p-list-none p-m-0">
                     <li class="p-mr-4"><a href="#hero" class="p-text-white">Accueil</a></li>
@@ -91,10 +90,9 @@ import { RouterLink } from 'vue-router';
                     <li class="p-mr-4"><a href="#about" class="p-text-white">À propos</a></li>
                     <li><RouterLink to="/loginpage" class="p-button-rounded p-button-secondary">Se connecter</RouterLink></li>
                 </ul>
-                <p>&copy; 2024 MediSoft. Tous droits réservés.</p>
+                <p>&copy; 2024 SIUUUUUUU. Tous droits réservés.</p>
             </div>
         </footer>
-    </div>
 </template>
 
 <style scoped>
@@ -109,13 +107,13 @@ body {
 
 .container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
 }
 
 /* Header Section */
 .header {
-    background: linear-gradient(90deg, rgba(0, 150, 136, 0.9), rgba(0, 150, 136, 0.7)), url('../src/assets/header-bg.jpg') no-repeat center center/cover;
+    background: linear-gradient(90deg, rgba(0, 150, 136, 0.9), rgba(0, 150, 136, 0.7));
     color: white;
     padding: 10px 0; /* Reduced padding */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -193,7 +191,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: url('../src/assets/image1.jpg') no-repeat center center/cover;
+    background: url('@/assets/image1.jpg') no-repeat center center/cover;
     color: white;
     padding: 150px 0;
     text-align: center;

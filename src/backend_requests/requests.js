@@ -243,19 +243,9 @@ async function getPatientById(patientId, toast, router) {
 
 }
 
-
-
-
-
-
-
-
 //await getActivitiesForConectedStudent().then((e)=>  e.forEach(element => dataRowTable.push(element)) )
 
 //const dataRowTable = reactive([])
-
-
-
 
 async function getQuestionnaireResponses(practitionerId, toast) {
     try {
@@ -309,6 +299,34 @@ async function getQuestionnaireResponsesById(questionnaireResponseID, toast) {
         return [];
     }
 }
+
+async function getQuestionnaireResponsesByPatientId(questionnaireResponseID, toast) {
+    try {
+        const get_options = {
+            method: 'GET',
+            headers: {
+                'accept': '*/*',
+            },
+        };
+
+        const data = await doAjaxRequest(get_questionnaire_for_practitioner_by_ID+questionnaireResponseID, get_options); // On récupère l'objet à modifier
+
+        if (!data.ok) {
+            const json = await data.json();
+            toast.add({ severity: 'error', summary: 'Error', detail: `Erreur dans la récupération des questionnaires: ${json.message}`, life: 1000 });
+            return [];
+        }
+
+        return await data.json();
+
+    }
+    catch (error) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
+        console.error('Error fetching questionnaire responses:', error);
+        return [];
+    }
+}
+
 
 
 async function updateResponseStatus(responseId, toast, newStatus) {

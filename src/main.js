@@ -11,6 +11,7 @@ import StyleClass from "primevue/styleclass";
 import "primevue/resources/primevue.min.css";
 import 'primeicons/primeicons.css';
 import Fieldset from 'primevue/fieldset';
+import './assets/global.css'
 
 //core
 

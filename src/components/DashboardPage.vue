@@ -71,10 +71,10 @@ onUpdated(async () => {
 <template>
   <div class="container">
 
+    <Button icon="pi pi-cog" @click="showSidebar" class="show-sidebar-button" />
 
     <div class="card flex justify-content-center">
       <!-- Button to open the sidebar -->
-      <Button icon="pi pi-menu" @click="showSidebar" class="show-sidebar-button" />
       <!-- Sidebar component -->
       <Sidebar v-model:visible="sidebarVisible" position="left" :breakpoint="768" >
         <!-- User info section -->

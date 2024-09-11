@@ -11,6 +11,8 @@ const toastPatientsList = useToast();
 const connectedPractitionerPatients = reactive([]);
 const storedPractitionerId = localStorage.getItem('practitionerId');
 const selectedPatientId = ref(null); // Stocker l'ID du patient sélectionné
+const selected = ref(null); // Stocker l'ID du patient sélectionné
+
 
 onMounted(async () => {
   await getPatients(storedPractitionerId, toastPatientsList, router).then(data => {
@@ -32,41 +34,48 @@ onMounted(async () => {
 
 // Fonction déclenchée au clic sur un patient
 function onPatientClick(patientId) {
+  selectedPatientId.value=null;
   selectedPatientId.value = patientId; // Stocke l'ID du patient sélectionné
 }
 </script>
 
 <template>
-  <div class="table-container">
+  <div class="table-info-container">
     <!-- Table des patients -->
-    <DataTable :value="connectedPractitionerPatients" class="p-datatable-striped" @row-click="(e) => onPatientClick(e.data.id)">
-      <Column field="id" header="ID" />
-      <Column field="name.family" header="Nom" />
-      <Column field="name.given" header="Prénom" />
-      <Column field="gender" header="Genre" />
-      <Column field="birthDate" header="Date de Naissance" />
-    </DataTable>
-
+    <div class="table-container">
+      <DataTable :value="connectedPractitionerPatients" selectionMode="single" :selection="selected" class="p-datatable-striped" @row-click="(e) => onPatientClick(e.data.id)">
+        <Column field="id" header="ID" />
+        <Column field="name.family" header="Nom" />
+        <Column field="name.given" header="Prénom" />
+        <Column field="gender" header="Genre" />
+        <Column field="birthDate" header="Date de Naissance" />
+      </DataTable>
+    </div>
     <!-- Composant InfoPatient affiché en fonction du patient sélectionné -->
-    <InfoPatientsPage v-if="selectedPatientId" :patientId="selectedPatientId" />
+    <div class="info-container">
+      <InfoPatientsPage v-if="selectedPatientId" :patientId="selectedPatientId" />
+    </div>
   </div>
 </template>
 
 <style scoped>
-.table-container {
+.table-info-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
+  justify-content: space-between; /* Espace entre les deux colonnes */
+  width: 100%; /* Utiliser toute la largeur disponible */
 }
 
-/* Sélecteurs plus spécifiques pour forcer l'application des styles */
-.p-datatable-striped .p-datatable-tbody > tr {
-  cursor: pointer; /* Changer le curseur au survol pour indiquer que c'est cliquable */
-  transition: background-color 0.3s ease;
+.table-container, .info-container {
+  flex: 1; /* Chaque élément occupe la même largeur */
+  padding: 5px; /* Optionnel : Espacement interne */
 }
 
-.p-datatable-striped .p-datatable-tbody > tr:hover {
-  background-color: #f0f0f0 !important; /* Couleur de fond au survol */
+.table-container {
+  margin-right: 2px; /* Espace entre la table et l'info */
+  width: 10vw;
+}
+
+.info-container {
+  margin-left: 2px; /* Espace entre l'info et la table */
 }
 </style>
