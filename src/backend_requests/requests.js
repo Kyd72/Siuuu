@@ -12,6 +12,7 @@ const search_practitioner_by_id="/practitioner/"                        // Cherc
 
 const search_patients="/patient?generalPractitioner.reference="   // Chercher les médecins qui m'ont comme référence avec son nom et son identifier value
 
+const get_questionnaire_for_practitioner="/questionnaire-response?author.reference=Practitioner/"   // Chercher les médecins qui m'ont comme référence avec son nom et son identifier value
 
 
 
@@ -71,7 +72,6 @@ async function getPractitionerByNameAndIdentifier(practitionerName, toast, pract
 
         async function connected() {
 
-            toast.add({ severity: 'success', summary: 'Info', detail: "Authentifié", life: 1500 });
             await data.json().then(data => {
                 // Accédez à l'ID du Practitioner
                 let practitionerId ; // Supposant que l'ID est dans la propriété "id"
@@ -224,16 +224,16 @@ async function getQuestionnaireResponses(practitionerId, toast) {
             },
         };
 
-        const data = await doAjaxRequest(question_reponse_requette, get_options); // On supprime le practitionerId dans l'appel ici
+        const data = await doAjaxRequest(get_questionnaire_for_practitioner+practitionerId, get_options); // On supprime le practitionerId dans l'appel ici
 
         if (!data.ok) {
             const json = await data.json();
-            toast.add({ severity: 'error', summary: 'Error', detail: `Failed to fetch responses: ${json.message}`, life: 3000 });
+            toast.add({ severity: 'error', summary: 'Error', detail: `Erreur dans la récupération des questionnaires: ${json.message}`, life: 3000 });
             return [];
         }
 
-        const dataJSON = await data.json();
-        return dataJSON.filter(response => response.author.reference === `Practitioner/${practitionerId}`);
+        return await data.json();
+
     } catch (error) {
         toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
         console.error('Error fetching questionnaire responses:', error);
@@ -252,7 +252,7 @@ async function updateResponseStatus(responseId, toast, newStatus) {
             body: JSON.stringify({ status: newStatus }),
         };
 
-        const response = await doAjaxRequest(`${question_reponse_requette}/${responseId}`, putOptions);
+        const response = await doAjaxRequest(`${get_questionnaire_for_practitioner}${responseId}`, putOptions);
 
         if (!response.ok) {
             const json = await response.json();

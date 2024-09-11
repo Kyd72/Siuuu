@@ -1,0 +1,158 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "response-neuro01-987654321",
+  "questionnaire": "https://fhir.alliance4u.io/api/Questionnaire/neuro01",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/987654321",
+    "display": "Antoine Dupont"
+  },
+  "authored": "2024-09-10",
+  "author": {
+    "reference": "Practitioner/123456789",
+    "display": "Dr. Neurologist"
+  },
+  "item": [
+    {
+      "linkId": "1",
+      "text": "Orientation du patient",
+      "item": [
+        {
+          "linkId": "1.1",
+          "text": "Quelle est la date d'aujourd'hui ?",
+          "answer": [
+            {
+              "valueString": "10 septembre 2024"
+            }
+          ]
+        },
+        {
+          "linkId": "1.2",
+          "text": "Où vous trouvez-vous actuellement (ville, établissement, service) ?",
+          "answer": [
+            {
+              "valueString": "Hôpital Exemple, Neurologie"
+            }
+          ]
+        },
+        {
+          "linkId": "1.3",
+          "text": "Qui est le président actuel ?",
+          "answer": [
+            {
+              "valueString": "Président Exemple"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "2",
+      "text": "Évaluation de la mémoire",
+      "item": [
+        {
+          "linkId": "2.1",
+          "text": "Répétez les mots suivants : Pomme, Table, Sou.",
+          "answer": [
+            {
+              "valueString": "Pomme, Table, Sou"
+            }
+          ]
+        },
+        {
+          "linkId": "2.2",
+          "text": "Rappelez-vous les trois mots après quelques minutes.",
+          "answer": [
+            {
+              "valueString": "Pomme, Table, Sou"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "3",
+      "text": "Attention et calcul",
+      "item": [
+        {
+          "linkId": "3.1",
+          "text": "Soustrayez 7 à 100, et continuez à soustraire 7 jusqu'à 65.",
+          "answer": [
+            {
+              "valueInteger": 93
+            },
+            {
+              "valueInteger": 86
+            },
+            {
+              "valueInteger": 79
+            },
+            {
+              "valueInteger": 72
+            },
+            {
+              "valueInteger": 65
+            }
+          ]
+        },
+        {
+          "linkId": "3.2",
+          "text": "Épelez le mot 'MONDE' à l'envers.",
+          "answer": [
+            {
+              "valueString": "EDNOM"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "4",
+      "text": "Compétences linguistiques",
+      "item": [
+        {
+          "linkId": "4.1",
+          "text": "Décrivez les objets suivants en utilisant vos mots : Stylo, montre.",
+          "answer": [
+            {
+              "valueString": "Un stylo sert à écrire, une montre donne l'heure."
+            }
+          ]
+        },
+        {
+          "linkId": "4.2",
+          "text": "Rédigez une phrase en utilisant les mots suivants : 'Pas de si, ni de mais.'",
+          "answer": [
+            {
+              "valueString": "Je veux une réponse claire, pas de si, ni de mais."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "5",
+      "text": "Reproduction de figures",
+      "item": [
+        {
+          "linkId": "5.1",
+          "text": "Identifiez la figure géométrique parmi les suivantes : carré, cercle, triangle, rectangle. Décrivez les caractéristiques de cette figure.",
+          "answer": [
+            {
+              "valueString": "Cercle : une figure ronde, sans angles."
+            }
+          ]
+        },
+        {
+          "linkId": "5.2",
+          "text": "Répondez à la question suivante : Quelle est la différence entre un cercle et un carré ?",
+          "answer": [
+            {
+              "valueString": "Un cercle n'a pas d'angles, alors qu'un carré en a quatre."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
