@@ -10,6 +10,7 @@ import {getPractitionerById} from "@/backend_requests/requests.js";
 import {useToast} from "primevue/usetoast";
 import QuestionnaireResponse from './QuestionnaireResponse.vue';
 import PatientsList from "@/components/PatientsList.vue";
+import QuestionnairePage from "@/components/QuestionnairePage.vue";
 const toastDash = useToast();
 
 const sidebarVisible = ref(false);
@@ -141,6 +142,7 @@ onUpdated(async () => {
       <div v-if="activeTab === 'answered'">
         <!-- Content for answered questionnaires -->
         <p>Answered questionnaires will be displayed here.</p>
+        <QuestionnairePage></QuestionnairePage>
       </div>
       <div v-if="activeTab === 'patients'">
         <!-- Content for patient data -->
