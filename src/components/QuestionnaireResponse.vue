@@ -31,7 +31,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue';
+  import {ref, onMounted, onUpdated} from 'vue';
   import Button from 'primevue/button';
   import { useToast } from 'primevue/usetoast';
   import { getQuestionnaireResponses, updateResponseStatus } from "@/backend_requests/requests.js";
@@ -65,6 +65,10 @@
     emit('closeComponent'); // Émission de l'événement avec la réponse sélectionnée
 
   };
+
+  onMounted(()=>{console.log(props.questionnaireResponse)})
+  onUpdated(()=>{console.log(props.questionnaireResponse)})
+
   </script>
   
   <style scoped>

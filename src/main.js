@@ -10,6 +10,8 @@ import "primeflex/primeflex.css";
 import StyleClass from "primevue/styleclass";
 import "primevue/resources/primevue.min.css";
 import 'primeicons/primeicons.css';
+import Fieldset from 'primevue/fieldset';
+
 //core
 
 import Button from "primevue/button"
@@ -80,6 +82,8 @@ app.component('Checkbox', Checkbox);
 app.component('Calendar', Calendar);
 app.component('Dropdown', Dropdown);
 app.component('FloatLabel', FloatLabel);
+app.component('Fieldset', Fieldset);
+
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
 app.mount('#app')

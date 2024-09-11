@@ -70,56 +70,64 @@ onUpdated(async () => {
 
 <template>
   <div class="container">
-    <!-- Button to open the sidebar -->
-    <Button icon="pi pi-menu" @click="showSidebar" class="show-sidebar-button" />
 
-    <!-- Sidebar component -->
-    <Sidebar :visible.sync="sidebarVisible" position="left" :breakpoint="768" >
-      <!-- User info section -->
-      <div class="user-info">
-        <div class="user-avatar-container">
-          <img src="/src/assets/Profil.png" alt="User Avatar" class="user-avatar" />
+
+    <div class="card flex justify-content-center">
+      <!-- Button to open the sidebar -->
+      <Button icon="pi pi-menu" @click="showSidebar" class="show-sidebar-button" />
+      <!-- Sidebar component -->
+      <Sidebar v-model:visible="sidebarVisible" position="left" :breakpoint="768" >
+        <!-- User info section -->
+        <div class="user-info">
+          <div class="user-avatar-container">
+            <img src="/src/assets/Profil.png" alt="User Avatar" class="user-avatar" />
+          </div>
+          <div class="user-details">
+            <p class="user-name">{{ connectedPractitioner.name[0].family.toUpperCase() }}, {{ connectedPractitioner.name[0].given[0].charAt(0).toUpperCase() + connectedPractitioner.name[0].given[0].slice(1).toLowerCase() }}
+            </p>
+            <p class="user-number">{{connectedPractitioner.identifier[0].value}}</p>
+          </div>
         </div>
-        <div class="user-details">
-          <p class="user-name">{{connectedPractitioner.name[0].family}}, {{connectedPractitioner.name[0].given[0]}} </p>
-          <p class="user-number">{{connectedPractitioner.identifier[0].value}}</p>
-        </div>
-      </div>
-      
-      <!-- Navigation links -->
-      <ul class="sidebar-links">
-        <li>
-          <Button 
-            label="Créer un questionnaire"
-            icon="pi pi-plus"
-            class="p-button-text"
-            @click="selectTab('home')"
-            :class="{ 'active': activeTab === 'home' }"
-          />
-        </li>
-        <li>
-          <Button 
-            label="Questionnaires"
-            icon="pi pi-list"
-            class="p-button-text"
-            @click="selectTab('pending')"
-            :class="{ 'active': activeTab === 'pending' }"
-          />
-        </li>
-        <li>
-          <Button 
-            label="Mes Patients" 
-            icon="pi pi-users" 
-            class="p-button-text"
-            @click="selectTab('patients')"
-            :class="{ 'active': activeTab === 'patients' }"
-          />
-        </li>
-      </ul>
 
-      <Button label="Close" icon="pi pi-times" @click="hideSidebar" class="p-button-secondary" />
+        <!-- Navigation links -->
+        <ul class="sidebar-links">
+          <li>
+            <Button
+                label="Créer un questionnaire"
+                icon="pi pi-plus"
+                class="p-button-text"
+                @click="selectTab('home')"
+                :class="{ 'active': activeTab === 'home' }"
+            />
+          </li>
+          <li>
+            <Button
+                label="Questionnaires"
+                icon="pi pi-list"
+                class="p-button-text"
+                @click="selectTab('pending')"
+                :class="{ 'active': activeTab === 'pending' }"
+            />
+          </li>
+          <li>
+            <Button
+                label="Mes Patients"
+                icon="pi pi-users"
+                class="p-button-text"
+                @click="selectTab('patients')"
+                :class="{ 'active': activeTab === 'patients' }"
+            />
+          </li>
+        </ul>
 
-    </Sidebar>
+        <!--
+              <Button label="Close" icon="pi pi-times" @click="hideSidebar" class="p-button-secondary" />
+        -->
+
+      </Sidebar>
+    </div>
+
+
 
     <!-- Main content area -->
     <div :class="{ 'main-content': true, 'sidebar-open': sidebarVisible }">
@@ -172,14 +180,15 @@ onUpdated(async () => {
 
 /* When sidebar is visible, add margin to main content */
 .sidebar-open {
-  margin-left: 250px; /* Same width as the sidebar */
+  margin-left: 20vh; /* Same width as the sidebar */
 }
 
 /* Button to show sidebar */
 .show-sidebar-button {
   margin: 1rem;
-  font-size: 1rem; /* Adjust font size */
-  padding: 0.5rem 1rem; /* Adjust padding */
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  height:6vh;
 }
 
 /* User info section */
