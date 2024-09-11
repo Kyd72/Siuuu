@@ -19,6 +19,8 @@ const get_questionnaire_for_practitioner_by_ID="/questionnaire-response/"   // C
 
 const search_patient_by_id ="/patient/"
 
+const create_questionnaire="/questionnaire" // endpoint pour créer un practicioner
+
 
 
 //REQUETES
@@ -43,7 +45,6 @@ async function createPractitioner(practitionerJson, toast) {
             toast.add({ severity: 'success', summary: 'Info', detail: "Praticien créé avec succès", life: 3000 });
             return  await data.json()
 
-
         }
 
         if (data.status >399) {
@@ -57,7 +58,6 @@ async function createPractitioner(practitionerJson, toast) {
     } catch (e) {
         alert(e)
     }
-
 
 }/*Chercher le praticien*/
 async function getPractitionerByNameAndIdentifier(practitionerName, toast, practitionerIdentifiant, router) {
@@ -349,10 +349,44 @@ async function updateResponseStatus(responseId, toast, newStatus) {
 
 }
 
+/*Créer un praticien*/
+async function createQuestionnaire(questionnaireJson, toast) {
+    try {
+        const post_options = {
+            method: 'POST',
+            headers: {
+                'accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            body: questionnaireJson
+        }
+
+        const data = await doAjaxRequest(create_questionnaire, post_options)
+
+        async function connected() {
+
+            toast.add({ severity: 'success', summary: 'Info', detail: "questionnaire créé avec succès", life: 3000 });
+            return  await data.json()
+
+        }
+
+        if (data.status >399) {
+
+            await data.json().then((json)=> toast.add({ severity: 'error', summary: 'Info', detail: "Erreur création questionnaire. \n"+  json.message, life: 3000 }) )
+            ;
+        }
+        return data.status === 200 ? await connected() :  null
+
+
+    } catch (e) {
+        alert(e)
+}
+
+}
 
 
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById, getQuestionnaireResponsesById }
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById, getQuestionnaireResponsesById, createQuestionnaire }
 
 
