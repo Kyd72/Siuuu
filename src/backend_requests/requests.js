@@ -14,6 +14,9 @@ const search_patients="/patient?generalPractitioner.reference="   // Chercher le
 
 const get_questionnaire_for_practitioner="/questionnaire-response?author.reference=Practitioner/"   // Chercher les médecins qui m'ont comme référence avec son nom et son identifier value
 
+const get_questionnaire_for_practitioner_by_ID="/questionnaire-response/"   // Chercher les médecins qui m'ont comme référence avec son nom et son identifier value
+
+
 const search_patient_by_id ="/patient/"
 
 
@@ -280,37 +283,76 @@ async function getQuestionnaireResponses(practitionerId, toast) {
     }
 }
 
-async function updateResponseStatus(responseId, toast, newStatus) {
+async function getQuestionnaireResponsesById(questionnaireResponseID, toast) {
     try {
-        const putOptions = {
-            method: 'PUT',
+        const get_options = {
+            method: 'GET',
             headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/json',
+                'accept': '*/*',
             },
-            body: JSON.stringify({ status: newStatus }),
         };
 
-        const response = await doAjaxRequest(`${get_questionnaire_for_practitioner}${responseId}`, putOptions);
+        const data = await doAjaxRequest(get_questionnaire_for_practitioner_by_ID+questionnaireResponseID, get_options); // On récupère l'objet à modifier
 
-        if (!response.ok) {
-            const json = await response.json();
-            toast.add({ severity: 'error', summary: 'Error', detail: `Failed to update response: ${json.message}`, life: 3000 });
-        } else {
-            toast.add({ severity: 'success', summary: 'Success', detail: `Response ${newStatus === 'completed' ? 'approved' : 'rejected'} successfully`, life: 3000 });
-            // Optionally refresh the responses list
-            responses.value = await getQuestionnaireResponses(localStorage.getItem('practitionerId'), toast);
+        if (!data.ok) {
+            const json = await data.json();
+            toast.add({ severity: 'error', summary: 'Error', detail: `Erreur dans la récupération des questionnaires: ${json.message}`, life: 1000 });
+            return [];
         }
-    } catch (error) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
-        console.error('Error updating response status:', error);
+
+        return await data.json();
+
     }
+    catch (error) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
+        console.error('Error fetching questionnaire responses:', error);
+        return [];
+    }
+}
+
+
+async function updateResponseStatus(responseId, toast, newStatus) {
+
+    let jsonToUpdate= await getQuestionnaireResponsesById(responseId, toast)
+
+    // Vérifier que l'objet possède un champ "status"
+    if (jsonToUpdate.hasOwnProperty('status')) {
+        jsonToUpdate.status = newStatus;
+        console.log("Le champ 'status' a été mis à jour avec succès.");
+        try {
+            const putOptions = {
+                method: 'PUT',
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonToUpdate),
+            };
+
+            const response = await doAjaxRequest(`${get_questionnaire_for_practitioner_by_ID}${responseId}`, putOptions);
+
+            if (!response.ok) {
+                const json = await response.json();
+                toast.add({ severity: 'error', summary: 'Error', detail: `Failed to update response: ${json.message}`, life: 3000 });
+            } else {
+                toast.add({ severity: 'success', summary: 'Success', detail: `Response ${newStatus === 'completed' ? 'approved' : 'rejected'} successfully`, life: 3000 });
+            }
+        } catch (error) {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
+            console.error('Error updating response status:', error);
+        }
+    } else {
+        toast.add({ severity: 'error', summary: 'Error', detail: "Erreur dans la mise à jour, le champ n'existe pas", life: 3000 });
+
+    }
+
+
 }
 
 
 
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById }
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById, getQuestionnaireResponsesById }
 
 

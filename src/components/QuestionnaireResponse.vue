@@ -1,5 +1,6 @@
 <template>
     <div class="questionnaire-list">
+      <Toast></Toast>
       <Button @click="close" label="Fermer" icon="pi pi-times" class="p-button-warning" />
 
       <div v-if="questionnaireResponse !== null ">
@@ -55,10 +56,14 @@
 
   const approveResponse = async (responseId) => {
     await updateResponseStatus(responseId, toast, 'completed'); // Ajout du toast ici
+    emit('closeComponent'); // Émission de l'événement avec la réponse sélectionnée
+
   };
   
   const rejectResponse = async (responseId) => {
     await updateResponseStatus(responseId, toast, 'amended'); // Ajout du toast ici
+    emit('closeComponent'); // Émission de l'événement avec la réponse sélectionnée
+
   };
   </script>
   

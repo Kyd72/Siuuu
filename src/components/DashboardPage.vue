@@ -11,6 +11,7 @@ import {useToast} from "primevue/usetoast";
 import QuestionnaireResponse from './QuestionnaireResponse.vue';
 import PatientsList from "@/components/PatientsList.vue";
 import QuestionnairePage from "@/components/QuestionnairePage.vue";
+import CreateQuestionnairePage from "@/components/CreateQuestionnairePage.vue";
 const toastDash = useToast();
 
 const sidebarVisible = ref(false);
@@ -89,8 +90,8 @@ onUpdated(async () => {
       <ul class="sidebar-links">
         <li>
           <Button 
-            label="Accueil" 
-            icon="pi pi-home" 
+            label="Créer un questionnaire"
+            icon="pi pi-plus"
             class="p-button-text"
             @click="selectTab('home')"
             :class="{ 'active': activeTab === 'home' }"
@@ -98,20 +99,11 @@ onUpdated(async () => {
         </li>
         <li>
           <Button 
-            label="Questionnaires en Attente" 
-            icon="pi pi-clock" 
+            label="Questionnaires"
+            icon="pi pi-list"
             class="p-button-text"
             @click="selectTab('pending')"
             :class="{ 'active': activeTab === 'pending' }"
-          />
-        </li>
-        <li>
-          <Button 
-            label="Questionnaires Répondu" 
-            icon="pi pi-check" 
-            class="p-button-text"
-            @click="selectTab('answered')"
-            :class="{ 'active': activeTab === 'answered' }"
           />
         </li>
         <li>
@@ -126,13 +118,14 @@ onUpdated(async () => {
       </ul>
 
       <Button label="Close" icon="pi pi-times" @click="hideSidebar" class="p-button-secondary" />
+
     </Sidebar>
 
     <!-- Main content area -->
     <div :class="{ 'main-content': true, 'sidebar-open': sidebarVisible }">
       <div v-if="activeTab === 'home'">
-        <h1>Welcome to the Dashboard</h1>
-        <p>Welcome to the main page of the dashboard.</p>
+        <h1>Créer un questionnaire</h1>
+        <CreateQuestionnairePage></CreateQuestionnairePage>
       </div>
       <div v-if="activeTab === 'pending'">
         <!-- Content for pending questionnaires -->
