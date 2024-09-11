@@ -126,9 +126,6 @@ onUpdated(async () => {
 
       </Sidebar>
     </div>
-
-
-
     <!-- Main content area -->
     <div :class="{ 'main-content': true, 'sidebar-open': sidebarVisible }">
       <div v-if="activeTab === 'home'">
@@ -152,7 +149,7 @@ onUpdated(async () => {
     </div>
 
     <!-- Logout Button positioned on the right side -->
-    <Button label="Logout" icon="pi pi-sign-out" @click="logout" class="logout-button" />
+    <Button label="Se déconnecter" icon="pi pi-sign-out" @click="logout" class="logout-button" />
 
     
   </div>
