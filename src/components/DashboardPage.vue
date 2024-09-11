@@ -137,7 +137,7 @@ onUpdated(async () => {
       <div v-if="activeTab === 'pending'">
         <!-- Content for pending questionnaires -->
          <p>Mes réponses </p>
-        <QuestionnaireResponse></QuestionnaireResponse>
+        <QuestionnairePage></QuestionnairePage>
     </div>
       <div v-if="activeTab === 'answered'">
         <!-- Content for answered questionnaires -->

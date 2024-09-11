@@ -1,6 +1,6 @@
 <template>
     <div class="questionnaire-list">
-      <Button @click="close" label="Approve" icon="pi pi-times" class="p-button-success" />
+      <Button @click="close" label="Fermer" icon="pi pi-times" class="p-button-warning" />
 
       <div v-if="questionnaireResponse !== null ">
           <h3>{{ questionnaireResponse.questionnaire || 'Réponse au questionnaire' }}</h3>
