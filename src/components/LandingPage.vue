@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-
 </script>
 
 <template>
@@ -11,14 +10,14 @@ import { RouterLink } from 'vue-router';
                 <div class="logo">
                     <h1 class="logo-text">MediSoft</h1>
                 </div>
-             <nav class="nav">
-                <ul class="nav-list p-m-0 p-d-flex p-ai-center">
-                    <li><a href="#hero" class="nav-item">Accueil</a></li>
-                    <li><a href="#features" class="nav-item">Fonctionnalités</a></li>
-                    <li><a href="#about" class="nav-item">À propos</a></li>
-                    <li><router-link to="/login" class="nav-item">Se connecter</router-link></li>
-                </ul>
-            </nav>
+                <nav class="nav">
+                    <ul class="nav-list p-m-0 p-d-flex p-ai-center">
+                        <li><a href="#hero" class="nav-item">Accueil</a></li>
+                        <li><a href="#features" class="nav-item">Fonctionnalités</a></li>
+                        <li><a href="#about" class="nav-item">À propos</a></li>
+                        <li><router-link to="/login" class="nav-item">Se connecter</router-link></li>
+                    </ul>
+                </nav>
             </div>
         </header>
 
@@ -116,29 +115,17 @@ body {
 
 /* Header Section */
 .header {
-    background: #ffffff;
-    color: #333;
-    padding: 15px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    background: linear-gradient(90deg, rgba(0, 150, 136, 0.9), rgba(0, 150, 136, 0.7)), url('../src/assets/header-bg.jpg') no-repeat center center/cover;
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Change to fixed if you want the header always visible */
     top: 0;
     z-index: 1000;
-}
-
-.logo {
-    flex: 1;
-}
-
-.logo-text {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #009688; /* Utilisation du vert pour le logo */
-}
-
-.nav {
-    flex: 1;
+    width: 100%;
+    /* Ensure header stays on top of other content */
     display: flex;
-    justify-content: flex-end;
+    justify-content: center; /* Centre tout le contenu horizontalement */
 }
 
 .nav-list {
@@ -150,15 +137,19 @@ body {
 }
 
 .nav-item {
-    color: #009688; /* Utilisation du vert pour les liens de navigation */
+    color: white;
     text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s, transform 0.3s;
+    font-size: 1.2rem;
+    transition: color 0.3s, background-color 0.3s, transform 0.3s;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 .nav-item:hover {
-    color: #00796b; /* Teinte plus foncée du vert au survol */
-    transform: translateY(-1px);
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    font-weight: bold;
 }
 
 /* Hero Section */
@@ -167,7 +158,6 @@ body {
     color: white;
     padding: 150px 0;
     text-align: center;
-    background-blur: 5px;
 }
 
 .hero-title {
@@ -209,13 +199,6 @@ body {
     color: #009688;
 }
 
-/* About Section */
-.about-section {
-    padding: 80px 0;
-    background-color: #ffffff;
-    text-align: center;
-}
-
 /* Testimonials Section */
 .testimonials-section {
     padding: 80px 0;
@@ -241,8 +224,12 @@ body {
 /* Call to Action Section */
 .cta-section {
     padding: 80px 0;
-    background-color: #009688; /* Utilisation du vert pour la section CTA */
+    background-color: #009688;
     color: white;
+}
+
+.cta-section Button {
+    font-size: 1.2rem;
 }
 
 /* Footer Section */
