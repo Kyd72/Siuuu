@@ -1,32 +1,51 @@
-# SIUUUU
+# Nom du Projet
 
-Pour créer un médecinnpm
+Description brève du projet.
 
+## Table des matières
 
-This template should help get you started developing with Vue 3 in Vite.
+1. [Description](#description)
+2. [Fonctionnalités](#fonctionnalités)
+3. [Prérequis](#prérequis)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Structure du projet](#structure-du-projet)
+7. [Contributeurs](#contributeurs)
+8. [Licence](#licence)
 
-## Recommended IDE Setup
+## Description
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Ce projet est une application permettant la gestion des interactions entre médecins et patients. Les principales fonctionnalités incluent la gestion des rendez-vous, la transmission d'ordonnances, et l'affichage de questionnaires. Le projet est basé sur Vue.js pour la partie front-end, avec une API FHIR pour l'intégration des données de santé.
 
-## Customize configuration
+## Fonctionnalités
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Prise de rendez-vous entre médecins et patients
+- Gestion des réponses aux questionnaires médicaux
+- Transmission et visualisation d'ordonnances
+- Utilisation de l'API FHIR pour récupérer et gérer les données médicales
+- Interface réactive et dynamique avec Vue.js
 
-## Project Setup
+## Prérequis
 
-```sh
-npm install
-```
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
 
-### Compile and Hot-Reload for Development
+- [Node.js](https://nodejs.org/) (version 14 ou supérieure)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+- Un serveur de base de données (MongoDB recommandé)
+- Accès à une API FHIR (configurable dans l'application)
 
-```sh
-npm run dev
-```
+## Installation
 
-### Compile and Minify for Production
+1. Clonez le dépôt Git :
 
-```sh
-npm run build
-```
+   ```bash
+   git clone https://github.com/Kyd72/Siuuu
+
+1. Installer et tester :
+```bash
+   npm install
+   npm run dev
+   
+
+   
+
