@@ -3,13 +3,20 @@ import Column from "primevue/column";
 import DataTable from "primevue/datatable";
 import {onMounted, onUpdated, reactive, ref} from "vue";
 import { useToast } from 'primevue/usetoast';
-import { getQuestionnaireResponses} from "@/backend_requests/requests.js";
+import {
+  getQuestionnaireResponses,
+  getQuestionnaireResponsesById,
+  getQuestionnaireResponsesByPatientId
+} from "@/backend_requests/requests.js";
 import QuestionnaireResponse from "@/components/QuestionnaireResponse.vue";
 // à la créaation du composant, on va chercher les questionnaires du médecin connecté grâce à son id localisé dans le
 //local storage
-const storedPractitionerId = localStorage.getItem('practitionerId');
 const questionnairesResponses = reactive([]);
 const toast = useToast();
+// Props pour recevoir l'ID du patient sélectionné
+const props = defineProps({
+  patientId: String
+});
 
 // Variable réactive pour stocker l'élément sélectionné
 const selectedQuestionnaireResponse = ref({});
@@ -41,8 +48,8 @@ const closeQuestionnaireData = () => {
 
 
 onMounted(async () => {
-  if (storedPractitionerId) {
-    await getQuestionnaireResponses(storedPractitionerId, toast).then(data => {
+  if (props.patientId!==null) {
+    await getQuestionnaireResponsesByPatientId(props.patientId, toast).then(data => {
           // Si le JSON contient plus de propriétés, elles seront toutes assignées dynamiquement
           Object.assign(questionnairesResponses, data);
 
@@ -52,8 +59,8 @@ onMounted(async () => {
   }
 })
 onUpdated(async () => {
-  if (storedPractitionerId) {
-    await getQuestionnaireResponses(storedPractitionerId, toast).then(data => {
+  if (props.patientId!==null) {
+    await getQuestionnaireResponsesByPatientId(props.patientId, toast).then(data => {
           // Si le JSON contient plus de propriétés, elles seront toutes assignées dynamiquement
           Object.assign(questionnairesResponses, data);
 
@@ -61,6 +68,7 @@ onUpdated(async () => {
         }
     )
   }
+
 })
 
 

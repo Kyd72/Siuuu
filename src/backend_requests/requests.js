@@ -22,6 +22,7 @@ const search_patient_by_id ="/patient/"
 const create_questionnaire="/questionnaire" // endpoint pour créer un practicioner
 
 const questionnaire_By_Id ="/questionnaire/" 
+const get_questionnaire_response_by_Patient_ID="/questionnaire-response?subject.reference=Patient/"   // Chercher les médecins qui m'ont comme référence avec son nom et son identifier value
 
 
 //REQUETES
@@ -128,7 +129,6 @@ async function getPractitionerByNameAndIdentifier(practitionerName, toast, pract
 
 
 }
-
 /*Chercher le praticien avec son id*/
 async function getPractitionerById(practitionerId, toast, router) {
 
@@ -167,8 +167,6 @@ async function getPractitionerById(practitionerId, toast, router) {
 
 
 }
-
-
 async function getPatients(practitionerId, toast, router) {
 
 
@@ -206,8 +204,6 @@ async function getPatients(practitionerId, toast, router) {
 
 
 }
-
-
 /*Chercher le patient avec son id*/
 async function getPatientById(patientId, toast, router) {
 
@@ -243,10 +239,6 @@ async function getPatientById(patientId, toast, router) {
 
 
 }
-
-//await getActivitiesForConectedStudent().then((e)=>  e.forEach(element => dataRowTable.push(element)) )
-
-//const dataRowTable = reactive([])
 
 async function getQuestionnaireResponses(practitionerId, toast) {
     try {
@@ -301,7 +293,7 @@ async function getQuestionnaireResponsesById(questionnaireResponseID, toast) {
     }
 }
 
-async function getQuestionnaireResponsesByPatientId(questionnaireResponseID, toast) {
+async function getQuestionnaireResponsesByPatientId(PatientID, toast) {
     try {
         const get_options = {
             method: 'GET',
@@ -310,7 +302,7 @@ async function getQuestionnaireResponsesByPatientId(questionnaireResponseID, toa
             },
         };
 
-        const data = await doAjaxRequest(get_questionnaire_for_practitioner_by_ID+questionnaireResponseID, get_options); // On récupère l'objet à modifier
+        const data = await doAjaxRequest(get_questionnaire_response_by_Patient_ID+PatientID, get_options);
 
         if (!data.ok) {
             const json = await data.json();

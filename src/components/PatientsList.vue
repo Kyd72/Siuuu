@@ -12,6 +12,8 @@ const connectedPractitionerPatients = reactive([]);
 const storedPractitionerId = localStorage.getItem('practitionerId');
 const selectedPatientId = ref(null); // Stocker l'ID du patient sélectionné
 const selected = ref(null); // Stocker l'ID du patient sélectionné
+const afficherInfos = ref(false); // Stocker l'ID du patient sélectionné
+
 
 
 onMounted(async () => {
@@ -34,8 +36,15 @@ onMounted(async () => {
 
 // Fonction déclenchée au clic sur un patient
 function onPatientClick(patientId) {
-  selectedPatientId.value=null;
-  selectedPatientId.value = patientId; // Stocke l'ID du patient sélectionné
+  selectedPatientId.value = patientId;
+    // Stocke l'ID du patient sélectionné
+
+  afficherInfos.value = false;
+
+  // Attendre un petit délai pour que Vue prenne en compte le changement
+  setTimeout(() => {
+    afficherInfos.value = true;
+  }, 10); // Utilisation d'un délai très court
 }
 </script>
 
@@ -43,7 +52,7 @@ function onPatientClick(patientId) {
   <div class="table-info-container">
     <!-- Table des patients -->
     <div class="table-container">
-      <DataTable :value="connectedPractitionerPatients" selectionMode="single" :selection="selected" class="p-datatable-striped" @row-click="(e) => onPatientClick(e.data.id)">
+      <DataTable :value="connectedPractitionerPatients" selectionMode="single" :selection="selected" class="p-datatable-striped" @rowClick="(e) => onPatientClick(e.data.id)">
         <Column field="id" header="ID" />
         <Column field="name.family" header="Nom" />
         <Column field="name.given" header="Prénom" />
@@ -53,7 +62,7 @@ function onPatientClick(patientId) {
     </div>
     <!-- Composant InfoPatient affiché en fonction du patient sélectionné -->
     <div class="info-container">
-      <InfoPatientsPage v-if="selectedPatientId" :patientId="selectedPatientId" />
+      <InfoPatientsPage v-if="afficherInfos" :patientId="selectedPatientId" ></InfoPatientsPage>
     </div>
   </div>
 </template>
