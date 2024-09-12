@@ -1,6 +1,7 @@
 <template>
   <div class="info-container">
     <!-- Colonne gauche : Informations du patient -->
+     <toast></toast>
     <div class="left-column">
       <h2>Informations du patient</h2>
       <p><strong>ID :</strong> {{ patientData.id }}</p>

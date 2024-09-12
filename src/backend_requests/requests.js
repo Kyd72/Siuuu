@@ -461,6 +461,6 @@ async function getQuestionnaireById(questionnaireID, toast) {
 
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById, getQuestionnaireResponsesById, createQuestionnaire, getQuestionnairesAll, getQuestionnaireById }
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById, getQuestionnaireResponsesById, createQuestionnaire, getQuestionnairesAll, getQuestionnaireById, getQuestionnaireResponsesByPatientId }
 
 

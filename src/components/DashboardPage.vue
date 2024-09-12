@@ -104,7 +104,7 @@ onUpdated(async () => {
           </li>
           <li>
             <Button
-                label="Mes Questionnaires"
+                label="Questionnaires répondus"
                 icon="pi pi-list"
                 class="p-button-text"
                 @click="selectTab('pending')"
