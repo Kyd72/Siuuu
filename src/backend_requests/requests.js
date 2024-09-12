@@ -21,6 +21,7 @@ const search_patient_by_id ="/patient/"
 
 const create_questionnaire="/questionnaire" // endpoint pour créer un practicioner
 
+const questionnaire_By_Id ="/questionnaire/" 
 
 
 //REQUETES
@@ -403,8 +404,71 @@ async function createQuestionnaire(questionnaireJson, toast) {
 }
 
 
+async function getQuestionnairesAll(toast, router) {
 
 
-export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById, getQuestionnaireResponsesById, createQuestionnaire }
+    try {
+        const get_options = {
+            method: 'GET',
+            headers: {
+                'accept': '*/*'
+            }
+        }
+
+        const data = await doAjaxRequest(create_questionnaire, get_options)
+
+        async function connected() {
+
+            return await data.json() ;
+
+        }
+
+        if (data.status >399) {
+
+            await data.json().then((json)=> toast.add({ severity: 'error', summary: 'Info', detail: "Ce médécin n'existe pas\n"+  json.message, life: 3000 }) )
+            ;
+
+            router.push('/login')
+        }
+        return data.status === 200 ? await connected() :  null
+
+
+    } catch (e) {
+        alert(e)
+    }
+
+}
+
+async function getQuestionnaireById(questionnaireID, toast) {
+    try {
+        const get_options = {
+            method: 'GET',
+            headers: {
+                'accept': '*/*',
+            },
+        };
+
+        const data = await doAjaxRequest(questionnaire_By_Id+questionnaireID, get_options); // On récupère l'objet à modifier
+
+        if (!data.ok) {
+            const json = await data.json();
+            toast.add({ severity: 'error', summary: 'Error', detail: `Erreur dans la récupération du questionnaires: ${json.message}`, life: 1000 });
+            return [];
+        }
+
+        return await data.json();
+
+    }
+    catch (error) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Connection error', life: 3000 });
+        console.error('Error fetching questionnaire responses:', error);
+        return [];
+    }
+}
+
+
+
+
+export { createPractitioner, getPractitionerByNameAndIdentifier, getPractitionerById, getQuestionnaireResponses, updateResponseStatus, getPatients, getPatientById, getQuestionnaireResponsesById, createQuestionnaire, getQuestionnairesAll, getQuestionnaireById }
 
 

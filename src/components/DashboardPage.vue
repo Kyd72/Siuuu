@@ -12,6 +12,8 @@ import QuestionnaireResponse from './QuestionnaireResponse.vue';
 import PatientsList from "@/components/PatientsList.vue";
 import QuestionnairePage from "@/components/QuestionnairePage.vue";
 import CreateQuestionnairePage from "@/components/CreateQuestionnairePage.vue";
+import AllQuestionnairePage from './AllQuestionnairePage.vue';
+
 const toastDash = useToast();
 
 const sidebarVisible = ref(false);
@@ -102,11 +104,20 @@ onUpdated(async () => {
           </li>
           <li>
             <Button
-                label="Questionnaires"
+                label="Mes Questionnaires"
                 icon="pi pi-list"
                 class="p-button-text"
                 @click="selectTab('pending')"
                 :class="{ 'active': activeTab === 'pending' }"
+            />
+          </li>
+          <li>
+            <Button
+                label="Tous les Questionnaires"
+                icon="pi pi-book"
+                class="p-button-text"
+                @click="selectTab('all')"
+                :class="{ 'active': activeTab === 'all' }"
             />
           </li>
           <li>
@@ -149,6 +160,11 @@ onUpdated(async () => {
         <!-- Content for patient data -->
         <PatientsList></PatientsList>
       </div>
+      <div v-if="activeTab === 'all'">
+        <!-- Content for pending questionnaires -->
+         <p>Tous les formulaires </p>
+        <AllQuestionnairePage></AllQuestionnairePage>
+    </div>
     </div>
 
     <!-- Logout Button positioned on the right side -->
